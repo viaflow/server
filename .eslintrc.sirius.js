@@ -27,6 +27,7 @@ module.exports = {
         moment: true,
         _: true,
         NODE_ENV: true,
-        now: true
+        now: true,
+        Router: true
     }
 };

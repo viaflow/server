@@ -13,6 +13,7 @@ const setGlobal = () => {
     global.fs = fs;
     global.app = express();
     global.moment = moment;
+    global.Router = express.Router;
     global._ = _;
     global.NODE_ENV = process.env.NODE_ENV || 'development';
     global.now = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -101,4 +102,17 @@ const setScripts = () => {
 }
 // endregion
 
-export default [setGlobal, setLogger, setDatabase, setMiddlewares, setScripts];
+// region register routes
+const setRoutes = () => {
+    const routesDir = 'src/routes';
+    const routeFiles = fs.readdirSync(path.join(process.cwd(), routesDir));
+    routeFiles.forEach(fileName => {
+        const prefix = `/${path.basename(fileName, '.js')}`;
+        (prefix === '/index') && (prefix = '/');
+        const routes = require(path.join(process.cwd(), routesDir, fileName)).default;
+        app.use(prefix, routes);
+    })
+}
+// endregion
+
+export default [setGlobal, setLogger, setDatabase, setMiddlewares, setScripts, setRoutes];

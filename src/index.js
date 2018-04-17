@@ -1,4 +1,4 @@
-import app from './app';
+import cronflow from './app';
 
 const { PORT = 8080 } = process.env;
-app.listen(PORT, () => Logger.log(`Listening on port ${PORT}`));
+cronflow.listen(PORT, () => Logger.log(`Listening on port ${PORT}`));
