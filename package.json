@@ -1,0 +1,78 @@
+{
+  "name": "cronflow",
+  "code": "cronflow",
+  "version": "0.0.1",
+  "description": "Make pipeline cron job easier and amazing",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cronflow/cronflow.git"
+  },
+  "author": "Sirius Guo <cealer@foxmail.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "prestart": "npm run -s build",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.js --exec \"node -r babel-register\"",
+    "clean": "rimraf dist",
+    "build": "npm run clean && mkdir -p dist && babel src -s -D -d dist",
+    "test": "jest --watch",
+    "lint": "esw -w src test",
+    "y": "yarn --no-lockfile"
+  },
+  "keywords": [
+    "cron",
+    "cronjob",
+    "pipeline",
+    "flow",
+    "cronflow"
+  ],
+  "dependencies": {
+    "alphabetjs": "^0.1.4",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "body-parser": "^1.18.2",
+    "colors": "^1.2.1",
+    "express": "^4.16.3",
+    "lodash": "^4.17.5",
+    "moment": "^2.22.1",
+    "morgan": "^1.9.0",
+    "pug": "^2.0.3",
+    "rimraf": "^2.6.2",
+    "tracer": "^0.8.12"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "^22.4.3",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jest": "^21.15.0",
+    "eslint-watch": "^3.1.4",
+    "jest": "^22.4.3",
+    "nodemon": "^1.17.3",
+    "supertest": "^3.0.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "transform-object-rest-spread",
+      "transform-class-properties"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
