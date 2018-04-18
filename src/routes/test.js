@@ -1,18 +1,23 @@
+import jwt from 'jsonwebtoken';
+
 const routes = Router();
 
-routes.get('/', (req, res) => {
-    res.render('index', { title: 'Express Babel' });
+routes.get('/aaa', (req, res) => {
+    // res.render('index', { title: 'Express Babel' });
+    Logger.log(req.user);
+    res.json(req.user);
 });
 
-routes.get('/list', (req, res, next) => {
-    const { title } = req.query;
-
-    if (title == null || title === '') {
-        next(new Error('The "title" parameter is required'));
-        return;
-    }
-
-    res.render('index', { title });
+routes.get('/token', (req, res) => {
+    res.json({
+        result: 'ok',
+        token: jwt.sign({
+            name: 'tuo',
+            data: 'gabefbyfaoweuy',
+        }, 'jwtsecret', {
+            expiresIn: 60 * 60,
+        }),
+    });
 });
 
 export default routes;

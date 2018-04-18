@@ -5,7 +5,7 @@ module.exports = {
         es6: true,
     },
     rules: {
-        'no-console': 'off',
+        'no-console': 2,
         indent: ['error', 4],
         quotes: ['error', 'single'],
     },

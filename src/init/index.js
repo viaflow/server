@@ -5,6 +5,8 @@ import moment from 'moment';
 import _ from 'lodash';
 import colors from 'colors';
 import tracer from 'tracer';
+import jwt from 'express-jwt';
+import config from './config';
 
 // region Global variables initialization
 const setGlobal = () => {
@@ -26,7 +28,7 @@ const setGlobal = () => {
 const setLogger = () => {
     const logFormat = '{{level}}_{{title}} {{timestamp}} [{{path}}] {{message}}';
 
-    const config = {
+    const logConfig = {
         level: 'log',
         format: [logFormat],
         filters: {
@@ -56,8 +58,7 @@ const setLogger = () => {
         },
     };
 
-    global.Logger = tracer.colorConsole(config);
-    // const now = new Date().toISOString();
+    global.Logger = tracer.colorConsole(logConfig);
     Logger.debug(`
     ################ system booting, start with Logger setup
     ==>> ${now}`);
@@ -69,11 +70,38 @@ const setLogger = () => {
 
 // endregion
 
+// region set express server
+const setExpress = () => {
+    Logger.log('http server setup...')
+
+    // disable x-powerd-by
+    app.disable('x-powered-by');
+
+    // set static resources
+    app.use(express.static(path.join(process.cwd(), 'public')));
+
+    // set json web token secret
+    app.set('cronflow_token', process.env.secret || 'jwtsecret');
+    Logger.log(`cronflow secret (${app.get('cronflow_token')}) setup...`);
+    // set json web token
+    app.use(
+        jwt({
+            secret: app.get('cronflow_token')
+        }).unless({
+            path: config.insecureUrl
+        })
+    );
+    // set view engine
+    app.set('views', path.join(process.cwd(), './src/views'));
+    app.set('view engine', 'pug');
+};
+// endregion
+
 // region Database module settings
 const setDatabase = () => {
     // db settings required from src/inti/db/*.*
     // initialize database information like mongo/mysql or redis...
-    Logger.log(`setting database...`);
+    Logger.log(`database setup...`);
     const dbSettingsDir = 'src/init/db';
     const dbFiles = fs.readdirSync(path.join(process.cwd(), dbSettingsDir));
     dbFiles.forEach(dbf => {
@@ -84,6 +112,7 @@ const setDatabase = () => {
 
 // region express middlewares loader
 const setMiddlewares = () => {
+    Logger.log(`middlewares setup...`);
     const middlewaresDir = 'src/init/middlewares';
     const middlewares = fs.readdirSync(path.join(process.cwd(), middlewaresDir));
     middlewares.forEach(middleware => {
@@ -94,6 +123,7 @@ const setMiddlewares = () => {
 
 // region register custom scripts
 const setScripts = () => {
+    Logger.log(`custom scripts setup...`);
     const customScriptDir = 'src/init/customs';
     const customScripts = fs.readdirSync(path.join(process.cwd(), customScriptDir));
     customScripts.forEach(script => {
@@ -104,15 +134,16 @@ const setScripts = () => {
 
 // region register routes
 const setRoutes = () => {
+    Logger.log(`routings setup...`);
     const routesDir = 'src/routes';
     const routeFiles = fs.readdirSync(path.join(process.cwd(), routesDir));
     routeFiles.forEach(fileName => {
-        const prefix = `/${path.basename(fileName, '.js')}`;
+        let prefix = `/${path.basename(fileName, '.js')}`;
         (prefix === '/index') && (prefix = '/');
         const routes = require(path.join(process.cwd(), routesDir, fileName)).default;
-        app.use(prefix, routes);
+        (routes) && (app.use(prefix, routes));
     })
 }
 // endregion
 
-export default [setGlobal, setLogger, setDatabase, setMiddlewares, setScripts, setRoutes];
+export default [setGlobal, setLogger, setExpress, setDatabase, setMiddlewares, setScripts, setRoutes];
