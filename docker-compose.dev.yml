@@ -1,0 +1,22 @@
+version: '3'
+services:
+  cronflow:
+    restart: "no"
+    build: .
+    volumes:
+      - "./:/cronflow"
+    working_dir: /cronflow
+    environment:
+      - PORT=8080
+    command: "npm run dev"
+    ports:
+      - "8080:8080"
+  cronflow-db:
+    restart: "no",
+    image: "mysql",
+    environment:
+      MYSQL_ROOT_PASSWORD: "cronflow",
+      MYSQL_DATABASE: "cronflow",
+      MYSQL_USER: "cronflow_user",
+      MYSQL_PASSWORD: "cronflow",
+    
