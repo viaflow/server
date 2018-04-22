@@ -19,4 +19,5 @@ services:
       MYSQL_DATABASE: "cronflow",
       MYSQL_USER: "cronflow_user",
       MYSQL_PASSWORD: "cronflow",
-    
+    volumes:
+      - "${PWD}/scripts/local-dev-mongo-entrypoint/:/docker-entrypoint-initdb.d/"
