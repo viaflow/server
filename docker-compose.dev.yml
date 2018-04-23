@@ -6,8 +6,16 @@ services:
     volumes:
       - "./:/cronflow"
     working_dir: /cronflow
+    links:
+      - cronflow-db:mysql
     environment:
       - PORT=8080
+      - DATABASE_DIALECT=MYSQL
+      - DATABASE_HOST=mysql
+      - DATABASE_PORT=3306
+      - DATABASE_USERNAME=cronflow_user
+      - DATABASE_NAME=cronflow
+      - DATABASE_PASSWORD=CronFlow2018!
     command: "npm run dev"
     ports:
       - "8080:8080"
@@ -15,9 +23,9 @@ services:
     restart: "no",
     image: "mysql",
     environment:
-      MYSQL_ROOT_PASSWORD: "cronflow",
+      MYSQL_ROOT_PASSWORD: "CronFlow2018!",
       MYSQL_DATABASE: "cronflow",
       MYSQL_USER: "cronflow_user",
-      MYSQL_PASSWORD: "cronflow",
+      MYSQL_PASSWORD: "CronFlow2018!",
     volumes:
-      - "${PWD}/scripts/local-dev-mongo-entrypoint/:/docker-entrypoint-initdb.d/"
+      - "${PWD}/init/:/docker-entrypoint-initdb.d/"
