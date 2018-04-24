@@ -20,12 +20,16 @@ services:
     ports:
       - "8080:8080"
   cronflow-db:
-    restart: "no",
-    image: "mysql",
+    restart: "no"
+    image: "mysql:5.7"
     environment:
-      MYSQL_ROOT_PASSWORD: "CronFlow2018!",
-      MYSQL_DATABASE: "cronflow",
-      MYSQL_USER: "cronflow_user",
-      MYSQL_PASSWORD: "CronFlow2018!",
+      MYSQL_ROOT_PASSWORD: "CronFlow2018!"
+      MYSQL_DATABASE: "cronflow"
+      MYSQL_USER: "cronflow_user"
+      MYSQL_PASSWORD: "CronFlow2018!"
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
     volumes:
-      - "${PWD}/init/:/docker-entrypoint-initdb.d/"
+      - "${PWD}/init:/docker-entrypoint-initdb.d"
