@@ -6,7 +6,7 @@ import _ from 'lodash';
 import colors from 'colors';
 import tracer from 'tracer';
 import jwt from 'express-jwt';
-import config from './config';
+import { insecureUrl } from './config';
 
 // region Global variables initialization
 const setGlobal = () => {
@@ -88,7 +88,7 @@ const setExpress = () => {
         jwt({
             secret: app.get('cronflow_token')
         }).unless({
-            path: config.insecureUrl
+            path: insecureUrl
         })
     );
     // set view engine
