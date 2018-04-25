@@ -28,6 +28,7 @@ module.exports = {
         _: true,
         NODE_ENV: true,
         now: true,
-        Router: true
+        Router: true,
+        sequelize: true,
     }
 };

@@ -19,6 +19,7 @@ const dbConf = {
         acquire: 2000,
         idle: 5000,
     },
+    logging: false,
 };
 
 
