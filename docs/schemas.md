@@ -152,7 +152,7 @@ user_password
 
 user_role  权限部分暂时使用简单的设计，以后迭代
 
-control_tags  权限对应的cronflow tags
+control_tags  权限对应的cronflow tags
 
 creater
 
