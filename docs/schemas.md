@@ -12,6 +12,10 @@ cronflow_name
 
 cronflow_tags
 
+trigger_type  (active/passive, 自主主动触发还是被动触发)
+
+cronflow_cron  
+
 cronflow_nodes
 
 cronflow_triggered
