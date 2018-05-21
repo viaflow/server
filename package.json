@@ -19,7 +19,8 @@
     "build": "npm run clean && mkdir -p dist && babel src -s -D -d dist",
     "test": "jest --watch",
     "lint": "esw -w src test",
-    "y": "yarn --no-lockfile"
+    "y": "yarn --no-lockfile",
+    "sass": "./node_modules/.bin/sass public/assets/scss/style.scss public/assets/css/style.css --trace"
   },
   "keywords": [
     "cron",
@@ -33,9 +34,9 @@
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "body-parser": "^1.18.2",
-    "colors": "^1.2.3",
+    "babel-preset-env": "^1.7.0",
+    "body-parser": "^1.18.3",
+    "colors": "^1.3.0",
     "express": "^4.16.3",
     "express-jwt": "^5.3.1",
     "jsonwebtoken": "^8.2.1",
@@ -45,21 +46,22 @@
     "mysql2": "^1.5.3",
     "pug": "^2.0.3",
     "rimraf": "^2.6.2",
-    "sequelize": "^4.37.6",
+    "sequelize": "^4.37.8",
     "tracer": "^0.8.15"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
-    "babel-jest": "^22.4.3",
+    "babel-jest": "^22.4.4",
     "babel-register": "^6.26.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jest": "^21.15.1",
     "eslint-watch": "^3.1.4",
-    "jest": "^22.4.3",
-    "nodemon": "^1.17.3",
-    "supertest": "^3.0.0"
+    "jest": "^22.4.4",
+    "nodemon": "^1.17.4",
+    "sass": "^1.3.2",
+    "supertest": "^3.1.0"
   },
   "babel": {
     "presets": [

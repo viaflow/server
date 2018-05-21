@@ -1,7 +1,19 @@
-
 import init from './init';
 
-init.forEach((i) => { i(); });
+init.forEach((i) => {
+    i();
+});
+
+// Catch Unauthorized Error
+app.use((err, req, res, next) => {
+    Logger.log(req.originalUrl);
+    if (err.name === 'UnauthorizedError') {
+        res.redirect(307, `/auth/login?r=${req.originalUrl}`);
+        // res.status(401).send('invalid token...');
+    } else {
+        next();
+    }
+});
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -11,7 +23,8 @@ app.use((req, res, next) => {
 });
 
 // Error handler
-app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+app.use((err, req, res, next) => {
+    // eslint-disable-line no-unused-vars
     res.status(err.status || 500).render('error', {
         message: err.message,
     });

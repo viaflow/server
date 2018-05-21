@@ -2,8 +2,9 @@ const insecureUrl = [
     '/token/generate',
     '/login',
     '/logout',
-    /\/test\/*/,
+    // /\/test\/*/,
     '/err',
+    /\/auth\/*/,
 ];
 
 const dbConf = {
