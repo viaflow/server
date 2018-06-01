@@ -5,9 +5,9 @@ module.exports = {
         es6: true,
     },
     rules: {
-        'no-console': 2,
-        indent: ['error', 4],
-        quotes: ['error', 'single'],
+        "no-console": 2,
+        "indent": ['error', 4],
+        "quotes": ['error', 'single'],
     },
     parserOptions: {
         "ecmaVersion": 2017,
