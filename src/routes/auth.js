@@ -1,20 +1,12 @@
-const router = new Router();
-
-// router.get('/login', (req, res) => {
-//     // console.log(req.query.r);
-//     res.render('login', {});
-// });
-const method = 'get';
-
-const testFunc = (req, res) => {
-    Logger.log(req.query.r);
-    res.render('login', {});
+export const LoginInit = {
+    path: '/login',
+    method: 'get',
+    handler: () => {},
 };
 
-router[method]('/login', testFunc);
+export const LoginPost = {
+    path: '/login',
+    method: 'post',
+    handler: 
+};
 
-// router.post('/login', (req, res) => {
-
-// });
-
-export default router;
