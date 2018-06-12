@@ -6,7 +6,6 @@ import _ from 'lodash';
 import colors from 'colors';
 import tracer from 'tracer';
 import jwt from 'express-jwt';
-import Table from 'cli-table';
 import { insecureUrl } from './config';
 
 // region Global variables initialization
