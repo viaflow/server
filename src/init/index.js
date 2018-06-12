@@ -6,8 +6,8 @@ import _ from 'lodash';
 import colors from 'colors';
 import tracer from 'tracer';
 import jwt from 'express-jwt';
-import { insecureUrl } from './config';
 import Table from 'cli-table';
+import { insecureUrl } from './config';
 
 // region Global variables initialization
 const setGlobal = () => {
@@ -16,7 +16,7 @@ const setGlobal = () => {
     global.fs = fs;
     global.app = express();
     global.moment = moment;
-    global.Router = express.Router;
+    global.route = express.Router();
     global._ = _;
     global.NODE_ENV = process.env.NODE_ENV || 'development';
     global.now = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -135,7 +135,7 @@ const setScripts = () => {
 
 // region set interceptors(e.g. auth)
 const setInterceptors = () => {
-
+    Logger.log(`Interceptors setup...`);
 }
 // endregion
 
@@ -144,20 +144,26 @@ const setRoutes = () => {
     Logger.log(`routings setup...`);
     const routesDir = 'src/routes';
     const routeFiles = fs.readdirSync(path.join(process.cwd(), routesDir));
-    const routeTable = new Table();
+    const routeTable = [];
     routeFiles.forEach(fileName => {
         let prefix = `/${path.basename(fileName, '.js')}`;
         (prefix === '/index') && (prefix = '/');
-
         const handlers = require(path.join(process.cwd(), routesDir, fileName));
         const majorKeys = Object.keys(handlers);
         majorKeys.forEach(key => {
-
+            const majorRoute = handlers[key];
+            route[majorRoute.method](`${prefix}${majorRoute.path}`, majorRoute.handler);
+            routeTable.push({
+                Path: `${prefix}${majorRoute.path}`,
+                Method: majorRoute.method,
+                Validator: 'false'
+            })
         })
-        // Logger.log(Object.keys(handlers));
-        // const routes = require(path.join(process.cwd(), routesDir, fileName)).default;
-        // (routes) && (app.use(prefix, routes));
+
+        // eslint-disable-next-line no-console
+        console.table(routeTable);
     })
+    app.use(route);
 }
 // endregion
 
