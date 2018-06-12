@@ -19,7 +19,7 @@
     "build": "npm run clean && mkdir -p dist && babel src -s -D -d dist",
     "test": "jest --watch",
     "lint": "esw -w src test",
-    "y": "npm i --no-package-lock",
+    "y": "npm i --no-package-lock --registry=https://registry.npm.taobao.org",
     "sass": "./node_modules/.bin/sass public/assets/scss/style.scss public/assets/css/style.css --trace"
   },
   "keywords": [
