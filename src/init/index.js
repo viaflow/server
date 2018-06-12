@@ -7,6 +7,7 @@ import colors from 'colors';
 import tracer from 'tracer';
 import jwt from 'express-jwt';
 import { insecureUrl } from './config';
+import Table from 'cli-table';
 
 // region Global variables initialization
 const setGlobal = () => {
@@ -132,18 +133,32 @@ const setScripts = () => {
 }
 // endregion
 
+// region set interceptors(e.g. auth)
+const setInterceptors = () => {
+
+}
+// endregion
+
 // region register routes
 const setRoutes = () => {
     Logger.log(`routings setup...`);
     const routesDir = 'src/routes';
     const routeFiles = fs.readdirSync(path.join(process.cwd(), routesDir));
+    const routeTable = new Table();
     routeFiles.forEach(fileName => {
         let prefix = `/${path.basename(fileName, '.js')}`;
         (prefix === '/index') && (prefix = '/');
-        const routes = require(path.join(process.cwd(), routesDir, fileName)).default;
-        (routes) && (app.use(prefix, routes));
+
+        const handlers = require(path.join(process.cwd(), routesDir, fileName));
+        const majorKeys = Object.keys(handlers);
+        majorKeys.forEach(key => {
+
+        })
+        // Logger.log(Object.keys(handlers));
+        // const routes = require(path.join(process.cwd(), routesDir, fileName)).default;
+        // (routes) && (app.use(prefix, routes));
     })
 }
 // endregion
 
-export default [setGlobal, setLogger, setExpress, setDatabase, setMiddlewares, setScripts, setRoutes];
+export default [setGlobal, setLogger, setExpress, setDatabase, setMiddlewares, setScripts, setInterceptors, setRoutes];

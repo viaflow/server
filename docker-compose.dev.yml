@@ -32,4 +32,4 @@ services:
     expose:
       - "3306"
     volumes:
-      - "${PWD}/init:/docker-entrypoint-initdb.d"
+      - "${PWD}/local_initialization:/docker-entrypoint-initdb.d"
