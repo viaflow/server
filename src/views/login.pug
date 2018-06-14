@@ -21,17 +21,17 @@ html
                         | Sign In to 
                         strong.text-custom CronFlow
                 .p-20
-                    form.form-horizontal.m-t-20(action="index.html")
+                    form.form-horizontal.m-t-20(method="post")
                         .form-group
                             .col-12
-                                input.form-control(type="text" required="" placeholder="Username")
+                                input.form-control(type="text" required="" placeholder="Username" name="username")
                         .form-group
                             .col-12
-                                input.form-control(type="password" required="" placeholder="Password")
+                                input.form-control(type="password" required="" placeholder="Password" name="password")
                         .form-group
                             .col-12
                                 .checkbox.checkbox-primary
-                                    input#checkbox-signup(type="checkbox")
+                                    input#checkbox-signup(type="checkbox" name="remember")
                                     label(for="checkbox-signup")
                                         | Remember me
                         .form-group.text-center.m-t-40
