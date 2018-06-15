@@ -40,6 +40,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.3",
     "express-jwt": "^5.3.1",
+    "express-validator": "^5.2.0",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
@@ -48,7 +49,7 @@
     "pug": "^2.0.3",
     "rimraf": "^2.6.2",
     "sequelize": "^4.37.10",
-    "tracer": "^0.8.15"
+    "tracer": "^0.9.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
@@ -61,7 +62,7 @@
     "eslint-watch": "^3.1.5",
     "jest": "^23.1.0",
     "nodemon": "^1.17.5",
-    "sass": "^1.5.1",
+    "sass": "^1.6.0",
     "supertest": "^3.1.0"
   },
   "babel": {

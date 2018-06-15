@@ -1,7 +1,10 @@
+import { body, validationResult } from 'express-validator/check';
+
 export const LoginInit = {
     path: '/login',
     method: 'get',
     handler: (req, res) => {
+        // req.secret;
         res.cookie('app', 'cronflow', { signed: true, expires: new Date(Date.now() + 900000) });
         Logger.log(req.query.r);
         res.render('login', {});
@@ -11,7 +14,13 @@ export const LoginInit = {
 export const LoginPost = {
     path: '/login',
     method: 'post',
+    validator: [
+        body('username').not().isEmpty().withMessage('Incorrect username'),
+        body('password').isLength({ min: 6, max: 64 }).withMessage('Incorrect password'),
+    ],
     handler: (req, res) => {
+        const errors = validationResult(req).formatWith((({ msg }) => msg));
+        Logger.error(errors.array());
         // TODO:
         // get fields from form.
         // validate to database.
@@ -21,7 +30,7 @@ export const LoginPost = {
         Logger.log(`req.body is ${JSON.stringify(req.body)}`); // { username: 'sa', password: 'yueyu521', remember: 'on' }
         Logger.log(`req.query is ${JSON.stringify(req.query)}`); // { r: '/test/aaa' }
         Logger.log(`req.cookies is ${JSON.stringify(req.cookies)}`);
-        // Logger.log(`req.signedCookies is ${req.signedCookies}`);
+        Logger.log(`req.signedCookies is ${req.signedCookies.app}`);
         res.render('login', {});
     },
 };

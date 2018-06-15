@@ -43,14 +43,14 @@ const setLogger = () => {
         preprocess: (data) => {
             switch (data.title) {
                 case 'log':
-                    data.title += '  ';
+                    data.title += ' ';
                     break;
                 case 'info':
                 case 'warn':
-                    data.title += '@@@';
+                    data.title += '@@';
                     break;
                 default:
-                    data.title += '  ';
+                    data.title += ' ';
                     break;
             }
             data.title = data.title.toUpperCase();
@@ -151,16 +151,16 @@ const setRoutes = () => {
         const majorKeys = Object.keys(handlers);
         majorKeys.forEach(key => {
             const majorRoute = handlers[key];
-            route[majorRoute.method](`${prefix}${majorRoute.path}`, majorRoute.handler);
+            (!majorRoute.validator) && (majorRoute.validator = []);
+            route[majorRoute.method](`${prefix}${majorRoute.path}`, majorRoute.validator, majorRoute.handler);
             routeTable.push({
                 Path: `${prefix}${majorRoute.path}`,
                 Method: majorRoute.method,
-                Validator: 'false'
+                Validators: majorRoute.validator.length
             })
         })
 
-        // eslint-disable-next-line no-console
-        console.table(routeTable);
+        Logger.table(routeTable);
     })
     app.use(route);
 }
