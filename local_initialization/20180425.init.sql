@@ -126,3 +126,13 @@ CREATE TABLE IF NOT EXISTS `plugin_histroy` (
   `updated_date` datetime NOT NULL,
   PRIMARY KEY (`history_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+LOCK TABLES `cronflow_user` WRITE;
+
+INSERT INTO `cronflow_user` (`user_id`, `user_name`, `user_token`, `user_password`, `user_role`, `control_tags`, `creater`, `created_date`)
+VALUES
+	(1,'sa','','yueyu521','0','all',1,'2018-06-16 00:00:00');
+
+UNLOCK TABLES;

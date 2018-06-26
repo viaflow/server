@@ -22,7 +22,7 @@ export const LoginPost = {
         const errors = validationResult(req).formatWith((({ msg }) => msg));
         Logger.error(errors.array());
         // TODO:
-        // get fields from form.
+        // get fields from form. ✔️
         // validate to database.
         // generate jwt
         // save to cookie
@@ -30,7 +30,9 @@ export const LoginPost = {
         Logger.log(`req.body is ${JSON.stringify(req.body)}`); // { username: 'sa', password: 'yueyu521', remember: 'on' }
         Logger.log(`req.query is ${JSON.stringify(req.query)}`); // { r: '/test/aaa' }
         Logger.log(`req.cookies is ${JSON.stringify(req.cookies)}`);
-        Logger.log(`req.signedCookies is ${req.signedCookies.app}`);
+
+        Logger.log('req.signedCookies is');
+        Logger.log(req.signedCookies);
         res.render('login', {});
     },
 };
