@@ -91,9 +91,6 @@ const setExpress = () => {
             path: insecureUrl
         })
     );
-    // set view engine
-    app.set('views', path.join(process.cwd(), './src/views'));
-    app.set('view engine', 'pug');
 };
 // endregion
 
