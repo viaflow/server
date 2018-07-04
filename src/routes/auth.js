@@ -4,25 +4,33 @@ export const LoginInit = {
     path: '/login',
     method: 'get',
     handler: (req, res) => {
-        // req.secret;
-        res.cookie('app', 'cronflow', { signed: true, expires: new Date(Date.now() + 900000) });
+    // req.secret;
+        res.cookie('app', 'cronflow', {
+            signed: true,
+            expires: new Date(Date.now() + 900000),
+        });
         Logger.log(req.query.r);
-        res.render('login', {});
+        res.json({});
     },
 };
 
-export const LoginPost = {
+export const Login = {
     path: '/login',
     method: 'post',
     validator: [
-        body('username').not().isEmpty().withMessage('Incorrect username'),
-        body('password').isLength({ min: 6, max: 64 }).withMessage('Incorrect password'),
+        body('username')
+            .not()
+            .isEmpty()
+            .withMessage('Incorrect username'),
+        body('password')
+            .isLength({ min: 6, max: 64 })
+            .withMessage('Incorrect password'),
     ],
     handler: (req, res) => {
-        const errors = validationResult(req).formatWith((({ msg }) => msg));
+        const errors = validationResult(req).formatWith(({ msg }) => msg);
         Logger.error(errors.array());
         // TODO:
-        // get fields from form. ✔️
+        // get fields from body. ✔️
         // validate to database.
         // generate jwt
         // save to cookie
@@ -33,7 +41,6 @@ export const LoginPost = {
 
         Logger.log('req.signedCookies is');
         Logger.log(req.signedCookies);
-        res.render('login', {});
+        res.json({});
     },
 };
-
