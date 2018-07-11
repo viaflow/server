@@ -4,12 +4,19 @@ init.forEach((i) => {
     i();
 });
 
+// ignore .map request
+app.use((err, req, res, next) => {
+    if (req.path.match(/\.map$/i)) {
+        res.send('');
+    } else next();
+});
+
 // Catch Unauthorized Error
 app.use((err, req, res, next) => {
     Logger.log(req.originalUrl);
     if (err.name === 'UnauthorizedError') {
         res.redirect(307, `/auth/login?r=${req.originalUrl}`);
-        // res.status(401).send('invalid token...');
+    // res.status(401).send('invalid token...');
     } else {
         next();
     }

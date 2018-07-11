@@ -1,20 +1,28 @@
 import { body, validationResult } from 'express-validator/check';
 
-export const LoginInit = {
+/**
+ * Login page
+ * Check if has and verified access_token in cookie then redirect to param r.
+ * If not initialize the page.
+ */
+export const AuthLoginGet = {
     path: '/login',
     method: 'get',
     handler: (req, res) => {
-    // req.secret;
+        if (req.cookies.access_token) {
+            // 使用db验证token有效性
+
+        }
         res.cookie('app', 'cronflow', {
             signed: true,
             expires: new Date(Date.now() + 900000),
         });
         Logger.log(req.query.r);
-        res.json({});
+        res.render('login', {});
     },
 };
 
-export const Login = {
+export const AuthLoginPost = {
     path: '/login',
     method: 'post',
     validator: [
@@ -30,7 +38,7 @@ export const Login = {
         const errors = validationResult(req).formatWith(({ msg }) => msg);
         Logger.error(errors.array());
         // TODO:
-        // get fields from body. ✔️
+        // get fields from form. ✔️
         // validate to database.
         // generate jwt
         // save to cookie
@@ -41,6 +49,6 @@ export const Login = {
 
         Logger.log('req.signedCookies is');
         Logger.log(req.signedCookies);
-        res.json({});
+        res.render('login', {});
     },
 };

@@ -1,0 +1,192 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(name="description" content="Make pipeline cron job easier and amazing.")
+        meta(name="author" content="Sirius")
+        link(rel="shortcut icon" href="/assets/images/favicon.ico")
+        title Cron - 
+        link(href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css")
+        block css
+        link(href="/assets/css/icons.css" rel="stylesheet" type="text/css")
+        link(href="/assets/css/style.css" rel="stylesheet" type="text/css")
+        script(src="/assets/js/modernizr.min.js")
+    body.fixed-left
+        #wrapper
+            .topbar
+                .topbar-left
+                    .text-center
+                        a.logo(href="index.html")
+                            i.icon-clock.icon-c-logo
+                            span
+                                | C R 
+                                i.md.md-snooze
+                                |  N
+                        // Image Logo here
+                        // <a href="index.html" class="logo">
+                        // <i class="icon-c-logo"> <img src="assets/images/logo_sm.png" height="42"/> </i>
+                        // <span><img src="assets/images/logo_light.png" height="20"/></span>
+                        // </a>
+                // Button mobile view to collapse sidebar menu
+                nav.navbar-custom
+                    ul.list-inline.float-right.mb-0
+                        li.list-inline-item.dropdown.notification-list
+                            a.nav-link.dropdown-toggle.arrow-none.waves-light.waves-effect(data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false")
+                                i.dripicons-bell.noti-icon
+                                span.badge.badge-pink.noti-icon-badge 4
+                            .dropdown-menu.dropdown-menu-right.dropdown-arrow.dropdown-lg(aria-labelledby="Preview")
+                                // item
+                                .dropdown-item.noti-title
+                                    h5
+                                        span.badge.badge-danger.float-right 5
+                                        | Notification
+                                // item
+                                a.dropdown-item.notify-item(href="javascript:void(0);")
+                                    .notify-icon.bg-success
+                                        i.icon-bubble
+                                    p.notify-details
+                                        | Robert S. Taylor commented on Admin
+                                        small.text-muted 1 min ago
+                                // item
+                                a.dropdown-item.notify-item(href="javascript:void(0);")
+                                    .notify-icon.bg-info
+                                        i.icon-user
+                                    p.notify-details
+                                        | New user registered.
+                                        small.text-muted 1 min ago
+                                // item
+                                a.dropdown-item.notify-item(href="javascript:void(0);")
+                                    .notify-icon.bg-danger
+                                        i.icon-like
+                                    p.notify-details
+                                        | Carlos Crouch liked
+                                        b Admin
+                                        small.text-muted 1 min ago
+                                // All
+                                a.dropdown-item.notify-item.notify-all(href="javascript:void(0);")
+                                    | View All
+                        li.list-inline-item.notification-list
+                            a#btn-fullscreen.nav-link.waves-light.waves-effect(href="#")
+                                i.dripicons-expand.noti-icon
+                        li.list-inline-item.notification-list
+                            a.nav-link.right-bar-toggle.waves-light.waves-effect(href="#")
+                                i.dripicons-message.noti-icon
+                        li.list-inline-item.dropdown.notification-list
+                            a.nav-link.dropdown-toggle.waves-effect.waves-light.nav-user(data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false")
+                                img.rounded-circle(src="/assets/images/users/avatar-1.jpg" alt="user")
+                            .dropdown-menu.dropdown-menu-right.profile-dropdown(aria-labelledby="Preview")
+                                // item
+                                .dropdown-item.noti-title
+                                    h5.text-overflow
+                                        small Welcome ! John
+                                // item
+                                a.dropdown-item.notify-item(href="javascript:void(0);")
+                                    i.md.md-account-circle
+                                    span Profile
+                                // item
+                                a.dropdown-item.notify-item(href="javascript:void(0);")
+                                    i.md.md-settings
+                                    span Settings
+                                // item
+                                a.dropdown-item.notify-item(href="javascript:void(0);")
+                                    i.md.md-lock-open
+                                    span Lock Screen
+                                // item
+                                a.dropdown-item.notify-item(href="javascript:void(0);")
+                                    i.md.md-settings-power
+                                    span Logout
+                    ul.list-inline.menu-left.mb-0
+                        li.float-left
+                            button.button-menu-mobile.open-left.waves-light.waves-effect
+                                i.dripicons-menu
+                        li.hide-phone.app-search
+                            form(role="search")
+                                input.form-control(type="text" placeholder="Search...")
+                                a(href="")
+                                    i.fa.fa-search
+            // Top Bar End
+            // ========== Left Sidebar Start ==========
+            .left.side-menu
+                .sidebar-inner.slimscrollleft
+                    // - Divider
+                    #sidebar-menu
+                        ul
+                            li.text-muted.menu-title CronFlow
+                            li.has_sub
+                                a.waves-effect(href="javascript:void(0);")
+                                    i.ti-user
+                                    span  Crm 
+                                    span.menu-arrow
+                                ul.list-unstyled
+                                    li
+                                        a(href="crm-dashboard.html")  Dashboard 
+                                    li
+                                        a(href="crm-contact.html")  Contacts 
+                                    li
+                                        a(href="crm-opportunities.html")  Opportunities 
+                                    li
+                                        a(href="crm-leads.html")  Leads 
+                                    li
+                                        a(href="crm-customers.html")  Customers 
+                            li.text-muted.menu-title System Settings
+                            li.has_sub
+                                a.waves-effect(href="javascript:void(0);")
+                                    i.ti-user
+                                    span  Crm 
+                                    span.menu-arrow
+                                ul.list-unstyled
+                                    li
+                                        a(href="crm-dashboard.html")  Dashboard 
+                                    li
+                                        a(href="crm-contact.html")  Contacts 
+                                    li
+                                        a(href="crm-opportunities.html")  Opportunities 
+                                    li
+                                        a(href="crm-leads.html")  Leads 
+                                    li
+                                        a(href="crm-customers.html")  Customers 
+                            li.has_sub
+                                a.waves-effect(href="javascript:void(0);")
+                                    i.ti-shopping-cart
+                                    span.label.label-warning.pull-right 6
+                                    span  eCommerce 
+                                ul.list-unstyled
+                                    li
+                                        a(href="ecommerce-dashboard.html")  Dashboard
+                                    li
+                                        a(href="ecommerce-products.html")  Products
+                                    li
+                                        a(href="ecommerce-product-detail.html")  Product Detail
+                                    li
+                                        a(href="ecommerce-product-edit.html")  Product Edit
+                                    li
+                                        a(href="ecommerce-orders.html")  Orders
+                                    li
+                                        a(href="ecommerce-sellers.html")  Sellers
+                        .clearfix
+                    .clearfix
+            .content-page
+                .content
+                    .container-fluid
+                        block content
+                footer.footer.text-right
+                    | © 2018 - 2020. All rights reserved.
+        script.
+            var resizefunc = [];
+        // jQuery
+        script(src="/assets/js/jquery.min.js")
+        script(src="/assets/js/popper.min.js")
+        // Popper for Bootstrap
+        script(src="/assets/js/bootstrap.min.js")
+        script(src="/assets/js/detect.js")
+        script(src="/assets/js/fastclick.js")
+        script(src="/assets/js/jquery.slimscroll.js")
+        script(src="/assets/js/jquery.blockUI.js")
+        script(src="/assets/js/waves.js")
+        script(src="/assets/js/wow.min.js")
+        script(src="/assets/js/jquery.nicescroll.js")
+        script(src="/assets/js/jquery.scrollTo.min.js")
+        script(src="/assets/js/jquery.core.js")
+        script(src="/assets/js/jquery.app.js")
+        block script

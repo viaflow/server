@@ -17,7 +17,7 @@
     "local": "docker-compose -f docker-compose.dev.yml up",
     "clean": "rimraf dist",
     "build": "npm run clean && mkdir -p dist && babel src -s -D -d dist",
-    "test": "jest --watch",
+    "test": "jest --watch --coverage",
     "lint": "esw -w src test",
     "y": "npm i --no-package-lock",
     "taobao": "npm i --no-package-lock --registry=https://registry.npm.taobao.org",
@@ -45,25 +45,24 @@
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
-    "morgan": "^1.9.0",
     "mysql2": "^1.5.3",
     "pug": "^2.0.3",
     "rimraf": "^2.6.2",
     "sequelize": "^4.38.0",
-    "tracer": "^0.9.0"
+    "tracer": "^0.9.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.5",
-    "babel-jest": "^23.2.0",
+    "babel-jest": "^23.4.0",
     "babel-register": "^6.26.0",
-    "eslint": "^5.0.1",
+    "eslint": "^5.1.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jest": "^21.17.0",
-    "eslint-watch": "^4.0.0",
-    "jest": "^23.2.0",
-    "nodemon": "^1.17.5",
-    "sass": "^1.8.0",
+    "eslint-watch": "^4.0.1",
+    "jest": "^23.4.0",
+    "nodemon": "^1.18.0",
+    "sass": "^1.9.0",
     "supertest": "^3.1.0"
   },
   "babel": {
@@ -83,6 +82,16 @@
     ]
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "globals": {
+      "PORT": "8080",
+      "DATABASE_DIALECT": "MYSQL",
+      "DATABASE_HOST": "mysql",
+      "DATABASE_PORT": "3306",
+      "DATABASE_USERNAME": "cronflow_user",
+      "DATABASE_NAME": "cronflow",
+      "DATABASE_PASSWORD": "CronFlow2018!",
+      "TOKEN_KEY": "cronflow"
+    }
   }
 }

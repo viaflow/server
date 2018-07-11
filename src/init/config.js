@@ -25,4 +25,3 @@ const dbConf = {
 
 
 export { insecureUrl, dbConf };
-

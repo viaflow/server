@@ -16,6 +16,7 @@ services:
       - DATABASE_USERNAME=cronflow_user
       - DATABASE_NAME=cronflow
       - DATABASE_PASSWORD=CronFlow2018!
+      - TOKEN_KEY=cronflow
     command: "npm run dev"
     ports:
       - "8080:8080"
