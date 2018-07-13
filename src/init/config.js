@@ -13,7 +13,7 @@ const dbConf = {
     database: process.env.DATABASE_NAME,
     username: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
-    dialect: process.env.DATABASE_DIALECT.toLowerCase(),
+    dialect: process.env.DATABASE_DIALECT,
     pool: {
         max: 5,
         min: 0,
@@ -23,5 +23,10 @@ const dbConf = {
     logging: false,
 };
 
+const tokenConf = {
+    expried: process.env.TOKEN_EXPRIED,
+    secret: process.env.TOKEN_SECRET,
+    algorithms: process.env.TOKEN_ALGORITHMS,
+};
 
-export { insecureUrl, dbConf };
+export { insecureUrl, dbConf, tokenConf };

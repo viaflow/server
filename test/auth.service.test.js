@@ -1,25 +1,10 @@
-import { verifyToken, serializeToken } from '../src/services/auth.service';
-import init from '../src/init';
+import { verifyToken } from '../src/services/auth.service';
 
-beforeAll(() => {
-    console.log(process.env.PORT);
-    console.log('---------------');
-    init.forEach((i) => {
-        i();
-    });
+test('verifyToken simple test', async () => {
+    // const rst = await verifyToken(
+    //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTMxMzg0MDAxMDg0fQ._7Yau427wK6J48xPIpk55LfQQG5QoZZrf3PDHGh1pzY', 'cronflow',
+    // );
+    const rst = await verifyToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.BYXSDihgXZCPScr17djNdycMchBeDBFfpJWpkTNTST8', 'cronflow');
+    console.log(rst);
+    expect(rst.result).toBe(false);
 });
-
-test('Auth Service verifyToken', async () => {
-    const data = await verifyToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZXN0IjoiMTIzNDU2Nzg5MCIsIm5hbWUiOiJKb2huIERvZSJ9.ra_dtIqu1sZn_Y1hVgG88eXFIPCy7FgNXm8-V-EWehE', 'cronflow');
-    // console.log(data);
-    expect(data.result).toBe(true);
-});
-
-
-// describe('Auth Service verifyToken', () => {
-//     it('should return an object with correct token', async () => {
-
-//     });
-
-//     it('should throw error on in');
-// });
