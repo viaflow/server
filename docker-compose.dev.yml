@@ -6,6 +6,8 @@ services:
     volumes:
       - "./:/cronflow"
     working_dir: /cronflow
+    depends_on: 
+      - cronflow-db
     links:
       - cronflow-db:mysql
     environment:

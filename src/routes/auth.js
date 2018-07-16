@@ -18,6 +18,8 @@ export const AuthLoginGet = {
             expires: new Date(Date.now() + 900000),
         });
         Logger.log(req.query.r);
+        const valFromDb = await userValidToken(1);
+        Logger.log(valFromDb);
         res.render('login', { token: await userValidToken(1) });
     },
 };

@@ -1,17 +1,13 @@
 import init from './init';
 
-for (let i = 0; i < init.length; i++) {
-    const initFunc = init[i];
-    await initFunc();
-}
-
-// init.forEach((i) => {
-//     i();
-// });
+init.forEach((i) => {
+    i();
+});
 
 // ignore .map request
 app.use((err, req, res, next) => {
     if (req.path.match(/\.map$/i)) {
+        Logger.log(req.originalUrl);
         res.send('');
     } else next();
 });

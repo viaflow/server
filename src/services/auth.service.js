@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { tokenConf } from '../init/config';
+import { userValidToken } from './user.service';
 /**
  * Verify the token valid or not
  * @param {string} token token from cookie that application generated.
@@ -15,7 +16,7 @@ export const verifyToken = async () => {
         });
 
         // verify from database
-
+        // await console.log(userValidToken(1));
 
         return {
             result: true,

@@ -1,10 +1,11 @@
 import { User } from '../models';
 
-export const userValidToken = userId => User.findOne({
-    attributes: ['user_token'],
+export const userValidToken = async userId => User.findOne({
+    attributes: ['userToken'],
     where: {
-        user_id: userId,
+        userId,
     },
+    raw: true,
 });
 
 export const userInfo = async (userId) => {

@@ -15,8 +15,8 @@ const dbConf = {
     password: process.env.DATABASE_PASSWORD,
     dialect: process.env.DATABASE_DIALECT,
     pool: {
-        max: 5,
-        min: 0,
+        max: 10,
+        min: 2,
         acquire: 2000,
         idle: 5000,
     },

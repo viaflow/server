@@ -98,16 +98,15 @@ const setExpress = () => {
 // endregion
 
 // region Database module settings
-const setDatabase = async () => {
+const setDatabase = () => {
     // db settings required from src/inti/db/*.*
     // initialize database information like mongo/mysql or redis...
     Logger.log(`database setup...`);
     const dbSettingsDir = 'src/init/db';
     const dbFiles = fs.readdirSync(path.join(process.cwd(), dbSettingsDir));
-    for (let i = 0; i < dbFiles.length; i++) {
-        const dbf = dbFiles[i];
-        await require(path.join(process.cwd(), dbSettingsDir, dbf))
-    }
+    dbFiles.forEach(dbf => {
+        require(path.join(process.cwd(), dbSettingsDir, dbf));
+    })
 }
 // endregion
 
