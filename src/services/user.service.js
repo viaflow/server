@@ -1,6 +1,6 @@
 import { User } from '../models';
 
-export const userValidToken = async userId => User.findOne({
+export const userToken = async userId => User.findOne({
     attributes: ['userToken'],
     where: {
         userId,

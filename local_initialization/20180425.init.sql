@@ -76,7 +76,9 @@ CREATE TABLE IF NOT EXISTS `cronflow_secret` (
   PRIMARY KEY (`secret_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `user` (
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
   `userId` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `userName` char(255) NOT NULL DEFAULT '',
   `userToken` char(255) DEFAULT NULL,
@@ -89,6 +91,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `user` WRITE;
+
+INSERT INTO `user` (`userId`, `userName`, `userToken`, `userPassword`, `userRole`, `controlTags`, `creater`, `createdAt`, `updater`, `updatedAt`)
+VALUES
+	(1,'sa','test-sa1','yueyu521','0','all',1,'2018-06-16 00:00:00',1,'2018-06-16 00:00:00'),
+	(2,'sa','test-sa2','yueyu521','0','all',1,'2018-06-16 00:00:00',1,'2018-06-16 00:00:00');
+
+UNLOCK TABLES;
+
 
 CREATE TABLE IF NOT EXISTS `log_execute` (
   `log_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -129,12 +141,3 @@ CREATE TABLE IF NOT EXISTS `plugin_histroy` (
   PRIMARY KEY (`history_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
-LOCK TABLES `user` WRITE;
-
-INSERT INTO `user` (`userId`, `userName`, `userToken`, `userPassword`, `userRole`, `controlTags`, `creater`, `createdAt`, `updater`, `updatedAt`)
-VALUES
-	(1,'sa','test','yueyu521','0','all',1,'2018-06-16 00:00:00',1,'2018-06-16 00:00:00');
-
-UNLOCK TABLES;

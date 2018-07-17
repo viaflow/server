@@ -1,5 +1,5 @@
 import { body, validationResult } from 'express-validator/check';
-import { userValidToken } from '../services/user.service';
+import { userToken } from '../services/user.service';
 /**
  * Login page
  * Check if has and verified access_token in cookie then redirect to param r.
@@ -18,9 +18,7 @@ export const AuthLoginGet = {
             expires: new Date(Date.now() + 900000),
         });
         Logger.log(req.query.r);
-        const valFromDb = await userValidToken(1);
-        Logger.log(valFromDb);
-        res.render('login', { token: await userValidToken(1) });
+        res.render('login', { token: await userToken(1) });
     },
 };
 
