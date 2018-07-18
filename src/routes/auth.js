@@ -40,7 +40,7 @@ export const AuthLoginPost = {
         // TODO:
         // get fields from form. ✔️
         // validate to database.
-        // generate jwt
+        // generate jwt!
         // save to cookie
         // rediect to source
         Logger.log(`req.body is ${JSON.stringify(req.body)}`); // { username: 'sa', password: 'yueyu521', remember: 'on' }
