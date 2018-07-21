@@ -96,8 +96,8 @@ LOCK TABLES `user` WRITE;
 
 INSERT INTO `user` (`userId`, `userName`, `userToken`, `userPassword`, `userRole`, `controlTags`, `creater`, `createdAt`, `updater`, `updatedAt`)
 VALUES
-	(1,'sa','test-sa1','yueyu521','0','all',1,'2018-06-16 00:00:00',1,'2018-06-16 00:00:00'),
-	(2,'sa','test-sa2','yueyu521','0','all',1,'2018-06-16 00:00:00',1,'2018-06-16 00:00:00');
+	(1,'sa1','test-sa1','123456','0','all',1,'2018-06-16 00:00:00',1,'2018-06-16 00:00:00'),
+	(2,'sa2','test-sa2','123456','0','all',1,'2018-06-16 00:00:00',1,'2018-06-16 00:00:00');
 
 UNLOCK TABLES;
 

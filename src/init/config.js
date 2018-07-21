@@ -1,5 +1,4 @@
 const insecureUrl = [
-    '/token/generate',
     '/login',
     '/logout',
     // /\/test\/*/,
@@ -20,7 +19,7 @@ const dbConf = {
         acquire: 2000,
         idle: 5000,
     },
-    logging: false,
+    logging: true,
 };
 
 const tokenConf = {
@@ -28,6 +27,9 @@ const tokenConf = {
     expiresIn: process.env.TOKEN_EXPRIED || '7d',
     secret: process.env.TOKEN_SECRET,
     algorithm: process.env.TOKEN_ALGORITHMS || 'HS256',
+    cookieOptions: {
+        expires: (() => new Date(Date.now() + (7 * 24 * 60 * 60 * 1000)))(),
+    },
 };
 
 const applicationConf = {

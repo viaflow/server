@@ -18,7 +18,7 @@ export const verifyToken = async (token) => {
         });
 
         // verify from database by userId(sub)
-        const tokenInfo = await userToken(verifyResult.sub);
+        const tokenInfo = await userToken(verifyResult.sub, true);
         if (tokenInfo && tokenInfo.userToken === token) {
             return {
                 result: true,
@@ -33,6 +33,7 @@ export const verifyToken = async (token) => {
         };
     }
 };
+
 
 /**
  * Serialize token information from json web token
@@ -62,7 +63,11 @@ export const hmacDecrypt = (str) => {
     Logger.log(str);
 };
 
-
+/**
+ * Decrypt string with hamc
+ * @param {Object} payload json object that you want put in jwt payload.
+ * @return {string} json web token
+ */
 export const generateJsonWebToken = payload => jwt.sign(payload, tokenConf.secret, {
     algorithm: tokenConf.algorithm,
     expiresIn: tokenConf.expiresIn,

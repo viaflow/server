@@ -1,27 +1,19 @@
 import { User } from '../models';
 
-export const userToken = async userId => User.findOne({
-    attributes: ['userToken'],
-    where: {
-        userId,
-    },
-    raw: true,
-});
-
-export const userInfoByToken = async (userToken) => {
-
-};
-
-export const userInfoByUserId = async (userId) => {
-
-};
-
-export const userInfoByPassword = async (userName, userPassword) => {
-    User.findOne({
+export const userToken = async (userName, raw = false) => {
+    return await User.findOne({
+        attributes: ['userId', 'userToken'],
         where: {
             userName,
-            userPassword, // TODO: encrypt password
         },
-        raw: true,
+        raw,
     });
-};
+}
+
+export const userInfoByPassword = async (userName, userPassword, raw = false) => await User.findOne({
+    where: {
+        userName,
+        userPassword, // TODO: encrypt password
+    },
+    raw,
+});

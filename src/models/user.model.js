@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 
 export default sequelize.define('user', {
-    userId: Sequelize.BIGINT(11),
+    userId: { type: Sequelize.BIGINT(11), primaryKey: true },
     userName: Sequelize.STRING,
     userToken: Sequelize.STRING,
     userPassword: Sequelize.STRING,

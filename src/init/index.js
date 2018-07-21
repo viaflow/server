@@ -6,7 +6,7 @@ import _ from 'lodash';
 import colors from 'colors';
 import tracer from 'tracer';
 import jwt from 'express-jwt';
-import { insecureUrl } from './config';
+import { insecureUrl, tokenConf } from './config';
 
 // region Global variables initialization
 const setGlobal = () => {
@@ -26,7 +26,7 @@ const setGlobal = () => {
 
 /* eslint-disable */
 const setLogger = () => {
-    const logFormat = '{{level}}_{{title}} {{timestamp}} [{{path}}] {{message}}';
+    const logFormat = '{{level}}_{{title}} {{timestamp}} [{{path}}:{{line}}] {{message}}';
 
     const logConfig = {
         level: 'log',
@@ -39,7 +39,7 @@ const setLogger = () => {
             warn: colors.yellow,
             error: [colors.red, colors.bold],
         },
-        dateformat: 'yyyy-mm-dd HH:MM:ss.L',
+        dateformat: 'HH:MM:ss',
         preprocess: (data) => {
             switch (data.title) {
                 case 'log':
@@ -80,17 +80,6 @@ const setExpress = () => {
     // set static resources
     app.use(express.static(path.join(process.cwd(), 'public')));
 
-    // set json web token secret
-    app.set('cronflow_token', process.env.secret || 'jwtsecret');
-    Logger.log(`cronflow secret (${app.get('cronflow_token')}) setup...`);
-    // set json web token
-    app.use(
-        jwt({
-            secret: app.get('cronflow_token')
-        }).unless({
-            path: insecureUrl
-        })
-    );
     // set view engine
     app.set('views', path.join(process.cwd(), './src/views'));
     app.set('view engine', 'pug');
@@ -134,7 +123,20 @@ const setScripts = () => {
 
 // region set interceptors(e.g. auth)
 const setInterceptors = () => {
-    Logger.log(`Interceptors setup...`);
+    Logger.log(`[Interceptors] setup...`);
+    // set json web token
+
+    app.use(
+        jwt({
+            secret: tokenConf.secret,
+            getToken: function (req) {
+                return req.cookies[tokenConf.cookieName]
+            }
+        }).unless({
+            path: insecureUrl
+        })
+    );
+    Logger.log(`[Interceptors(JWT)] loaded`);
 }
 // endregion
 
@@ -159,9 +161,8 @@ const setRoutes = () => {
                 Validators: majorRoute.validator.length
             })
         })
-
-        Logger.table(routeTable);
     })
+    Logger.table(routeTable);
     app.use(route);
 }
 // endregion
