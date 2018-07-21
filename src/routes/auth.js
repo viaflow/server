@@ -22,11 +22,11 @@ export const AuthLoginGet = {
         // 使用db验证token有效性
         const verifyResult = await verifyToken(req.cookies.access_token);
         if (verifyResult.result) {
-            Logger.trace('验证通过')
+            Logger.trace(`Validated of user ${verifyResult.message.userId}`);
             // redirect to r or default
             res.redirect(req.query.r || applicationConf.index);
         } else {
-            Logger.log('验证不通过')
+            Logger.log('Invalid token, should login.');
             res.render('login', {});
         }
     },
@@ -50,10 +50,10 @@ export const AuthLoginPost = {
 
         const userInfo = await userInfoByPassword(req.body.username, req.body.password);
 
-        !userInfo && (errors.push('invaild username or password'))
+        !userInfo && (errors.push('invaild username or password'));
 
         if (errors.length > 0) {
-            throw new Error(errors.toString())
+            throw new Error(errors.toString());
         }
 
         // if has, do generate token things

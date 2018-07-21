@@ -129,7 +129,7 @@ const setInterceptors = () => {
     app.use(
         jwt({
             secret: tokenConf.secret,
-            getToken: function (req) {
+            getToken: (req) => {
                 return req.cookies[tokenConf.cookieName]
             }
         }).unless({
