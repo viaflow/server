@@ -125,7 +125,6 @@ const setScripts = () => {
 const setInterceptors = () => {
     Logger.log(`[Interceptors] setup...`);
     // set json web token
-
     app.use(
         jwt({
             secret: tokenConf.secret,
@@ -136,7 +135,7 @@ const setInterceptors = () => {
             path: insecureUrl
         })
     );
-    Logger.log(`[Interceptors(JWT)] loaded`);
+    Logger.log(`[Interceptors](JWT) loaded`);
 }
 // endregion
 
