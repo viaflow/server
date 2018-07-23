@@ -6,7 +6,7 @@ import _ from 'lodash';
 import colors from 'colors';
 import tracer from 'tracer';
 import jwt from 'express-jwt';
-import { insecureUrl, tokenConf } from './config';
+import { tokenConf } from './config';
 
 // region Global variables initialization
 const setGlobal = () => {
@@ -124,18 +124,6 @@ const setScripts = () => {
 // region set interceptors(e.g. auth)
 const setInterceptors = () => {
     Logger.log(`[Interceptors] setup...`);
-    // set json web token
-    app.use(
-        jwt({
-            secret: tokenConf.secret,
-            getToken: (req) => {
-                return req.cookies[tokenConf.cookieName]
-            }
-        }).unless({
-            path: insecureUrl
-        })
-    );
-    Logger.log(`[Interceptors](JWT) loaded`);
 }
 // endregion
 
@@ -157,11 +145,23 @@ const setRoutes = () => {
             routeTable.push({
                 Path: `${prefix}${majorRoute.path}`,
                 Method: majorRoute.method,
+                Auth: majorRoute.auth.toString().toUpperCase(),
                 Validators: majorRoute.validator.length
             })
         })
     })
     Logger.table(routeTable);
+    // jwt setting
+    app.use(
+        jwt({
+            secret: tokenConf.secret,
+            getToken: (req) => {
+                return req.cookies[tokenConf.cookieName]
+            }
+        }).unless({
+            path: _.uniq(routeTable.filter((item) => { return item.Auth === 'FALSE' }).map((item) => { return item.Path }))
+        })
+    );
     app.use(route);
 }
 // endregion
