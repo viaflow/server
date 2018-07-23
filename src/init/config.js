@@ -1,11 +1,3 @@
-const insecureUrl = [
-    '/login',
-    '/logout',
-    // /\/test\/*/,
-    '/err',
-    /\/auth\/*/,
-];
-
 const dbConf = {
     host: process.env.DATABASE_HOST || 'mysql',
     port: process.env.DATABASE_PORT || 3306,
@@ -37,5 +29,5 @@ const applicationConf = {
 };
 
 export {
-    insecureUrl, dbConf, tokenConf, applicationConf,
+    dbConf, tokenConf, applicationConf,
 };

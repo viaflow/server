@@ -151,7 +151,7 @@ const setRoutes = () => {
         })
     })
     Logger.table(routeTable);
-    // jwt setting
+    // jwt setting, express-jwt module must required before app.use(route).
     app.use(
         jwt({
             secret: tokenConf.secret,

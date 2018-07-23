@@ -1,8 +1,8 @@
 export const Index = {
-    path: '/index',
+    path: '',
     method: 'get',
     auth: true,
     handler: async (req, res) => {
-        res.render('dashboard/index',{})
+        res.render('dashboard/index', {});
     },
 };
