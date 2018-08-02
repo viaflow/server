@@ -1,16 +1,13 @@
+/**
+ * TODO:
+ * Move those logic to init script.
+ */
+
 import init from './init';
 
 init.forEach((i) => {
     i();
 });
-
-// // ignore .map request
-// app.use((err, req, res, next) => {
-//     if (req.path.match(/\.map$/i)) {
-//         Logger.log(req.originalUrl);
-//         res.send('');
-//     } else next();
-// });
 
 // Catch Unauthorized Error
 app.use((err, req, res, next) => {
