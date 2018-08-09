@@ -6,7 +6,8 @@ export const Plugins = {
     method: 'get',
     auth: true,
     handler: async (req, res) => {
-        const pluginsPath = join(process.cwd(), './src/plugins');
+        const plugins = [];
+        const pluginsPath = join(process.cwd(), './plugins');
         // 遍历plugins的文件夹中的文件夹
         const dirs = [];
         fs.readdirSync(pluginsPath).forEach((item) => {
