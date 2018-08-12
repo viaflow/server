@@ -1,5 +1,6 @@
 import fs from 'fs';
 import { join } from 'path';
+import { pluginInfo } from '../services/plugin.service';
 
 export const Plugins = {
     path: '/list',
@@ -19,8 +20,13 @@ export const Plugins = {
         // 便利文件夹，读取插件列表
         dirs.forEach((plgPath) => {
             Logger.log(plgPath);
+            try {
+                plugins.push(pluginInfo(plgPath));
+            } catch (e) {
+                Logger.error(`Plugin has error cannot be loaded: ${e.message}`);
+            }
         });
-        res.json(dirs);
+        res.json(plugins);
     },
 };
 
