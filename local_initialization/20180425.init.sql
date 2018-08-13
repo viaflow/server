@@ -85,16 +85,16 @@ CREATE TABLE `user` (
   `userPassword` char(255) NOT NULL DEFAULT '',
   `userRole` char(1) NOT NULL DEFAULT '',
   `controlTags` longtext,
-  `creater` int(11) NOT NULL,
+  `createdUser` int(11) NOT NULL,
   `createdAt` datetime NOT NULL,
-  `updater` int(11) NOT NULL,
+  `updatedUser` int(11) NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `user` WRITE;
 
-INSERT INTO `user` (`userId`, `userName`, `userToken`, `userPassword`, `userRole`, `controlTags`, `creater`, `createdAt`, `updater`, `updatedAt`)
+INSERT INTO `user` (`userId`, `userName`, `userToken`, `userPassword`, `userRole`, `controlTags`, `createdUser`, `createdAt`, `updatedUser`, `updatedAt`)
 VALUES
 	(1,'sa1','test-sa1','123456','0','all',1,'2018-06-16 00:00:00',1,'2018-06-16 00:00:00'),
 	(2,'sa2','test-sa2','123456','0','all',1,'2018-06-16 00:00:00',1,'2018-06-16 00:00:00');

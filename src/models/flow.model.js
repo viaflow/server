@@ -1,16 +1,23 @@
 import Sequelize from 'sequelize';
 
-export default sequelize.define('user', {
+export default sequelize.define('flow', {
     flowId: { type: Sequelize.BIGINT(11), primaryKey: true },
     flowName: Sequelize.STRING,
     flowTags: Sequelize.STRING,
-    userPassword: Sequelize.STRING,
-    userRole: Sequelize.STRING,
-    controlTags: Sequelize.STRING,
-    creater: Sequelize.BIGINT(11),
+    triggerType: Sequelize.STRING,
+    cron: Sequelize.STRING,
+    flowTimezone: Sequelize.STRING,
+    flowNodes: Sequelize.INTEGER,
+    flowState: Sequelize.STRING,
+    triggerCount: Sequelize.INTEGER,
+    flowDescription: Sequelize.STRING,
+    latestDate: Sequelize.DATE,
+    latestStatus: Sequelize.STRING,
+    nextDate: Sequelize.DATE,
     createdAt: Sequelize.DATE,
-    updater: Sequelize.BIGINT(11),
+    createdUser: Sequelize.BIGINT(11),
     updatedAt: Sequelize.DATE,
+    updatedUser: Sequelize.BIGINT(11),
 }, {
     tableName: 'flow',
 });

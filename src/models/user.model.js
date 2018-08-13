@@ -7,9 +7,9 @@ export default sequelize.define('user', {
     userPassword: Sequelize.STRING,
     userRole: Sequelize.STRING,
     controlTags: Sequelize.STRING,
-    creater: Sequelize.BIGINT(11),
+    createdUser: Sequelize.BIGINT(11),
     createdAt: Sequelize.DATE,
-    updater: Sequelize.BIGINT(11),
+    updatedUser: Sequelize.BIGINT(11),
     updatedAt: Sequelize.DATE,
 }, {
     tableName: 'user',
