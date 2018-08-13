@@ -140,12 +140,16 @@ const setRoutes = () => {
         const majorKeys = Object.keys(handlers);
         majorKeys.forEach(key => {
             const majorRoute = handlers[key];
+            if (!majorRoute.method)
+                return;
+
             (!majorRoute.validator) && (majorRoute.validator = []);
+
             route[majorRoute.method](`${prefix}${majorRoute.path}`, majorRoute.validator, majorRoute.handler);
             routeTable.push({
                 Path: `${prefix}${majorRoute.path}`,
                 Method: majorRoute.method,
-                Auth: majorRoute.auth.toString().toUpperCase(),
+                Auth: _.has(majorRoute, 'auth') ? majorRoute.auth.toString().toUpperCase() : 'TRUE', // default to true
                 Validators: majorRoute.validator.length
             })
         })

@@ -48,7 +48,7 @@
     "mysql2": "^1.6.1",
     "pug": "^2.0.3",
     "rimraf": "^2.6.2",
-    "sequelize": "^5.0.0-beta.10",
+    "sequelize": "^4.38.0",
     "tracer": "^0.9.1"
   },
   "devDependencies": {
@@ -58,11 +58,11 @@
     "eslint": "^5.3.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jest": "^21.18.0",
+    "eslint-plugin-jest": "^21.21.0",
     "eslint-watch": "^4.0.2",
-    "jest": "^23.4.2",
+    "jest": "^23.5.0",
     "nodemon": "^1.18.3",
-    "sass": "^1.10.3",
+    "sass": "^1.10.4",
     "supertest": "^3.1.0"
   },
   "babel": {
@@ -79,6 +79,9 @@
     "plugins": [
       "transform-object-rest-spread",
       "transform-class-properties"
+    ],
+    "ignore": [
+      "plugins"
     ]
   },
   "jest": {

@@ -13,25 +13,25 @@ CREATE TABLE `temp_data` (
 INSERT INTO `temp_data` VALUES ('1');
 
 
-CREATE TABLE IF NOT EXISTS `cronflow` (
-  `cronflow_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `cronflow_name` longtext NOT NULL,
-  `cronflow_tags` longtext,
-  `trigger_type` char(24) NOT NULL DEFAULT '',
-  `cronflow_cron` varchar(255) DEFAULT NULL,
-  `cronflow_timezone` char(255) DEFAULT NULL,
-  `cronflow_nodes` int(11) NOT NULL DEFAULT '0',
-  `cronflow_state` char(24) NOT NULL DEFAULT 'ACTIVE',
-  `cronflow_triggered` int(11) NOT NULL DEFAULT '0',
-  `cronflow_desc` longtext,
-  `latest_date` datetime DEFAULT NULL,
-  `latest_status` char(255) DEFAULT NULL,
-  `next_date` datetime DEFAULT NULL,
-  `created_date` datetime NOT NULL,
-  `created_user` int(11) NOT NULL,
-  `updated_date` datetime NOT NULL,
-  `updated_user` int(11) NOT NULL,
-  PRIMARY KEY (`cronflow_id`)
+CREATE TABLE IF NOT EXISTS `flow` (
+  `flowId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `flowName` longtext NOT NULL,
+  `flowTags` longtext,
+  `triggerType` char(24) NOT NULL DEFAULT '',
+  `cron` varchar(255) DEFAULT NULL,
+  `flowTimezone` char(255) DEFAULT NULL,
+  `flowNodes` int(11) NOT NULL DEFAULT '0',
+  `flowState` char(24) NOT NULL DEFAULT 'INIT',
+  `triggerCount` int(11) NOT NULL DEFAULT '0',
+  `flowDescription` longtext,
+  `latestDate` datetime DEFAULT NULL,
+  `latestStatus` char(255) DEFAULT NULL,
+  `nextDate` datetime DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `createdUser` int(11) NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `updatedUser` int(11) NOT NULL,
+  PRIMARY KEY (`flowId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
