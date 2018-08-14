@@ -1,4 +1,5 @@
-import { body, validationResult } from 'express-validator/check';
+import { body, param, validationResult } from 'express-validator/check';
+import { flowAdd, flowById } from '../services/flow.service';
 
 export const AddInit = {
     path: '/add',
@@ -26,25 +27,38 @@ export const AddSubmit = {
             return;
         }
 
-        /*
-        {
-            "flowName": "名字",
-            "flowTags": "cron,active,awef,This is a Tag!,Cool",
-            "triggerType": "active",
-            "cron": "阿娥无法违法违法",
-            "flowTimezone": "Asia/Shanghai",
-            "flowDescription": "awef"
-        }
-        */
-
         // initialize flow
         const {
             flowName, flowTags, triggerType, cron, flowTimezone, flowDescription,
         } = req.body;
-        const entity = {
+        const addResult = await flowAdd({
             flowName, flowTags, triggerType, cron, flowTimezone, flowDescription,
-        };
-        res.json(entity);
+        });
+
+        // TODO: 跳转到详情页
+        res.json(addResult);
+    },
+};
+
+export const FlowDetail = {
+    path: '/detail/:id',
+    method: 'get',
+    validator: [
+        param('id').not().isEmpty().isInt()
+            .withMessage('Cannot find the detail info'),
+    ],
+    handler: async (req, res) => {
+        const errors = validationResult(req).formatWith(({ msg }) => msg).array();
+
+        if (errors.length > 0) {
+            // TODO: 这里需要handle一下
+            res.json(errors);
+            return;
+        }
+
+
+        const flow = await flowById(req.params.id, true);
+        res.render('flow/detail', flow);
     },
 };
 

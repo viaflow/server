@@ -56,13 +56,13 @@
     "babel-jest": "^23.4.2",
     "babel-register": "^6.26.0",
     "eslint": "^5.3.0",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-plugin-import": "^2.13.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^21.21.0",
     "eslint-watch": "^4.0.2",
     "jest": "^23.5.0",
     "nodemon": "^1.18.3",
-    "sass": "^1.10.4",
+    "sass": "^1.11.0",
     "supertest": "^3.1.0"
   },
   "babel": {

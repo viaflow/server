@@ -1,0 +1,90 @@
+extends ../layout
+block css
+
+block content
+    .row
+        .col-lg-12
+            .card-box
+                a.pull-right.btn.btn-default.btn-sm.waves-effect.waves-light(href="#") Add node to latest
+                h4.text-dark.header-title.m-t-0 #{flowName}
+                p.text-muted.m-b-30.font-13 #{flowDescription}
+                ul.list-group.list-group-flush
+                    li.list-group-item #{cron} @ #{flowTimezone}
+                    li.list-group-item
+                        ul#upcoming.sortable-list.taskList.list-unstyled
+                            li#task1.task-warning
+                                span.font-bold Petey Cruiser
+                                .m-t-20
+                                    p.pull-right.m-b-0.button-list
+                                        button.btn.btn-inverse.waves-effect.waves-light(type="button")
+                                            span.btn-label
+                                                i.fa.fa-plus
+                                            | Anyway same level
+                                        button.btn.btn-success.waves-effect.waves-light(type="button")
+                                            span.btn-label
+                                                i.fa.fa-plus
+                                            | IF success next level
+
+                                        button.btn.btn-danger.waves-effect.waves-light(type="button")
+                                            span.btn-label
+                                                i.fa.fa-plus
+                                            | IF failed next level
+
+
+                                    p.m-b-0
+                                        a.text-muted(href="")
+                                            img.thumb-sm.rounded-circle.m-r-10(src="/assets/images/users/avatar-1.jpg" alt="task-user")
+                                            span.font-bold HTTP Call
+                            li#task2.task-success
+                                .checkbox.checkbox-custom.checkbox-single.pull-right
+                                    input(type="checkbox" aria-label="Single checkbox Two")
+                                    label
+                                |                                             Many desktop publishing packages and web page editors now use Lorem.
+                                .m-t-20
+                                    p.pull-right.m-b-0
+                                        i.fa.fa-clock-o
+                                        span(title="15/06/2016 12:56") 15/06/2016
+                                    p.m-b-0
+                                        a.text-muted(href="")
+                                            img.thumb-sm.rounded-circle.m-r-10(src="/assets/images/users/avatar-2.jpg" alt="task-user")
+                                            span.font-bold Anna Sthesia
+                            li#task3
+                                .checkbox.checkbox-custom.checkbox-single.pull-right
+                                    input(type="checkbox" aria-label="Single checkbox Two")
+                                    label
+                                |                                             If you are going to use a passage of Lorem Ipsum..
+                                .m-t-20
+                                    p.pull-right.m-b-0
+                                        i.fa.fa-clock-o
+                                        span(title="15/06/2016 12:56") 15/06/2016
+                                    p.m-b-0
+                                        a.text-muted(href="")
+                                            img.thumb-sm.rounded-circle.m-r-10(src="/assets/images/users/avatar-3.jpg" alt="task-user")
+                                            span.font-bold Gail Forcewind
+                            li#task4.task-info
+                                .checkbox.checkbox-custom.checkbox-single.pull-right
+                                    input(type="checkbox" aria-label="Single checkbox Two")
+                                    label
+                                |                                             It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
+                                .m-t-20
+                                    p.pull-right.m-b-0
+                                        i.fa.fa-clock-o
+                                        span(title="15/06/2016 12:56") 15/06/2016
+                                    p.m-b-0
+                                        a.text-muted(href="")
+                                            img.thumb-sm.rounded-circle.m-r-10(src="/assets/images/users/avatar-4.jpg" alt="task-user")
+                                            span.font-bold Maya Didas
+                            li#task5.task-danger
+                                .checkbox.checkbox-custom.checkbox-single.pull-right
+                                    input(type="checkbox" aria-label="Single checkbox Two")
+                                    label
+                                |                                             There are many variations of passages of Lorem Ipsum available.
+                                .m-t-20
+                                    p.pull-right.m-b-0
+                                        i.fa.fa-clock-o
+                                        span(title="15/06/2016 12:56") 15/06/2016
+                                    p.m-b-0
+                                        a.text-muted(href="")
+                                            img.thumb-sm.rounded-circle.m-r-10(src="/assets/images/users/avatar-5.jpg" alt="task-user")
+                                            span.font-bold Rick O'Shea
+block script

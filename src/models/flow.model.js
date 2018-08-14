@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 
 export default sequelize.define('flow', {
-    flowId: { type: Sequelize.BIGINT(11), primaryKey: true },
+    flowId: { type: Sequelize.BIGINT(11), primaryKey: true, autoIncrement: true },
     flowName: Sequelize.STRING,
     flowTags: Sequelize.STRING,
     triggerType: Sequelize.STRING,
