@@ -15,9 +15,9 @@ export default sequelize.define('flow', {
     latestStatus: Sequelize.STRING,
     nextDate: Sequelize.DATE,
     createdAt: Sequelize.DATE,
-    createdUser: Sequelize.BIGINT(11),
+    creator: Sequelize.BIGINT(11),
     updatedAt: Sequelize.DATE,
-    updatedUser: Sequelize.BIGINT(11),
+    updater: Sequelize.BIGINT(11),
 }, {
     tableName: 'flow',
 });

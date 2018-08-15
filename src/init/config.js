@@ -26,6 +26,13 @@ const tokenConf = {
 
 const applicationConf = {
     index: '/admin',
+    pluginDir: 'plugins',
+    pluginCompiledDir: 'viaflow_compiled',
+    pluginEntryFile: 'index.js',
+    babelCmd: 'babel',
+    babelParams: ['./', '-s', '-D', '-d', 'viaflow_compiled'],
+    npmCmd: 'npm',
+    npmParams: ['i', '--registry=https://registry.npm.taobao.org', '--no-package-lock'],
 };
 
 export {

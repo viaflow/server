@@ -18,13 +18,13 @@ export const Plugins = {
             }
         });
         // 便利文件夹，读取插件列表
+        Logger.log(dirs);
         dirs.forEach((plgPath) => {
-            Logger.log(plgPath);
-            try {
-                plugins.push(pluginInfo(plgPath));
-            } catch (e) {
-                Logger.error(`Plugin has error cannot be loaded: ${e.message}`);
-            }
+            // try {
+            plugins.push(pluginInfo(plgPath));
+            // } catch (e) {
+            //     Logger.error(`Plugin has error cannot be loaded: ${e.message}`);
+            // }
         });
         res.json(plugins);
     },

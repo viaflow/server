@@ -7,9 +7,9 @@ export const flowAdd = (entity) => {
         flowState: 'INIT',
         triggerCount: 0,
         createdAt: new Date(),
-        createdUser: 1,
+        creator: 1,
         updatedAt: new Date(),
-        updatedUser: 1,
+        updater: 1,
     };
 
     return Flow.create(Object.assign(defaults, entity));

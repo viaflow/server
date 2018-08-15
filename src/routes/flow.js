@@ -28,18 +28,29 @@ export const AddSubmit = {
         }
 
         // initialize flow
-        const {
-            flowName, flowTags, triggerType, cron, flowTimezone, flowDescription,
-        } = req.body;
-        const addResult = await flowAdd({
-            flowName, flowTags, triggerType, cron, flowTimezone, flowDescription,
-        });
+        try {
+            const {
+                flowName, flowTags, triggerType, cron, flowTimezone, flowDescription,
+            } = req.body;
+            const addResult = await flowAdd({
+                flowName, flowTags, triggerType, cron, flowTimezone, flowDescription,
+            });
 
-        // TODO: 跳转到详情页
-        res.json(addResult);
+            Logger.log('Flow added...');
+            Logger.log(addResult.dataValues);
+            res.redirect(`/flow/detail/${addResult.flowId}`);
+        } catch (e) {
+            Logger.error(e);
+            res.json(e);
+        }
     },
 };
 
+
+/**
+ * flow detail information, add node, edit base information
+ * TODO: edit base information
+ */
 export const FlowDetail = {
     path: '/detail/:id',
     method: 'get',
@@ -61,6 +72,7 @@ export const FlowDetail = {
         res.render('flow/detail', flow);
     },
 };
+
 
 export const Flows = {
 
