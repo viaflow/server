@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 15/08/2018 15:25:26
+ Date: 16/08/2018 17:40:43
 */
 
 SET NAMES utf8mb4;
@@ -58,15 +58,22 @@ CREATE TABLE `node` (
   `flowId` bigint(20) unsigned NOT NULL,
   `parentId` bigint(20) unsigned NOT NULL COMMENT '0表示根节点',
   `sequence` int(10) unsigned NOT NULL,
-  `signal` enum('ANY','SUCCESS','FAILURE') CHARACTER SET latin1 NOT NULL,
-  `plugin` varchar(256) CHARACTER SET latin1 NOT NULL,
-  `configurations` longtext CHARACTER SET latin1 NOT NULL,
+  `signal` enum('ANY','SUCCESS','FAILURE') NOT NULL,
+  `plugin` varchar(256) NOT NULL,
+  `configurations` longtext NOT NULL,
   `creator` int(10) unsigned NOT NULL,
   `createdAt` datetime NOT NULL,
   `updater` int(10) unsigned NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`nodeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of node
+-- ----------------------------
+BEGIN;
+INSERT INTO `node` VALUES (1, 1, 0, 0, 'ANY', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-16 09:40:12', 1, '2018-08-16 09:40:12');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for temp_data

@@ -1,6 +1,7 @@
 import { spawnSync } from 'child_process';
 import { isExistsFile, isExistsDir } from '../../utils/fs.utils';
 import { applicationConf } from '../init/config';
+
 /**
  * 获取插件信息根据绝对路径
  * @param {String} path 插件的绝对路径
@@ -56,8 +57,6 @@ export const pluginInfo = (path) => {
 
     const plugin = pluginDefineType === 'object' ? Define : Define();
 
-    Logger.log(plugin);
-
     // eslint-disable-next-line
     const packageInfo = require(`${path}/package.json`);
 
@@ -65,8 +64,10 @@ export const pluginInfo = (path) => {
         name: plugin.name,
         desc: plugin.desc,
         fields: plugin.fields,
-        repo: packageInfo.homepage,
-        author: packageInfo.author,
+        path: _.last(path.split('/')),
+        repo: _.get(packageInfo, 'homepage', '#'), // packageInfo.homepage,
+        author: _.get(packageInfo, 'author', 'Guo Tuo <guotuo1024@gmail.com>'),
+        issue: _.get(packageInfo, 'bugs.url', '#'),
     };
     return result;
 };

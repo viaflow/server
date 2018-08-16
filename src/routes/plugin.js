@@ -1,9 +1,10 @@
 import fs from 'fs';
 import { join } from 'path';
 import { pluginInfo } from '../services/plugin.service';
+import { nodeAdd } from '../services/flow.service';
 
-export const Plugins = {
-    path: '/list',
+export const PluginsWithParams = {
+    path: '/list/:flowId?/:parentId?',
     method: 'get',
     auth: true,
     handler: async (req, res) => {
@@ -18,24 +19,40 @@ export const Plugins = {
             }
         });
         // 便利文件夹，读取插件列表
-        Logger.log(dirs);
         dirs.forEach((plgPath) => {
-            // try {
-            plugins.push(pluginInfo(plgPath));
-            // } catch (e) {
-            //     Logger.error(`Plugin has error cannot be loaded: ${e.message}`);
-            // }
+            try {
+                plugins.push(pluginInfo(plgPath));
+            } catch (e) {
+                Logger.error(`Plugin has error cannot be loaded: ${e.message}`);
+            }
         });
-        res.json(plugins);
+
+        res.render('plugin/list', {
+            plugins,
+            path: req.params.flowId !== undefined && req.params.parentId !== undefined ? `${req.params.flowId}/${req.params.parentId}` : '',
+        });
     },
 };
 
-export const Details = {
-    path: '/detail/:id',
+export const DetailGet = {
+    path: '/detail/:path/:flowId?/:parentId?',
     method: 'get',
     auth: true,
     handler: async (req, res) => {
-        Logger.log(req.params.id);
-        res.json('1');
+        const pluginPath = join(process.cwd(), `./plugins/${req.params.path}`);
+        const plugin = pluginInfo(pluginPath);
+        Logger.log(plugin);
+        res.render('plugin/detail', plugin);
+    },
+};
+
+export const DetailPost = {
+    path: '/detail/:path/:flowId/:parentId',
+    method: 'post',
+    auth: true,
+    handler: async (req, res) => {
+        const node = await nodeAdd(req.params.flowId, req.params.parentId, 'ANY', req.params.path, req.body);
+
+        res.json(node);
     },
 };
