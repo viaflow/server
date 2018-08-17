@@ -222,6 +222,9 @@ body.fixed-left {
   margin-left: 240px;
   overflow: hidden;
 }
+.content-page-external {
+  overflow: hidden;
+}
 
 .content-page > .content {
   margin-bottom: 60px;
@@ -229,6 +232,11 @@ body.fixed-left {
   padding: 20px 5px 15px 5px;
   min-height: 300px;
 }
+
+.content-page-external > .content{
+  padding: 20px 5px 15px 5px;
+}
+
 
 .button-menu-mobile {
   border: none;

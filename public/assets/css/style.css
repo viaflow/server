@@ -1520,11 +1520,19 @@ body.fixed-left .side-menu.left {
   overflow: hidden;
 }
 
+.content-page-external {
+  overflow: hidden;
+}
+
 .content-page > .content {
   margin-bottom: 60px;
   margin-top: 70px;
   padding: 20px 5px 15px 5px;
   min-height: 300px;
+}
+
+.content-page-external > .content {
+  padding: 20px 5px 15px 5px;
 }
 
 .button-menu-mobile {

@@ -5,7 +5,7 @@ block content
     .row
         .col-lg-12
             .card-box
-                a.pull-right.btn.btn-default.btn-sm.waves-effect.waves-light(href="#") Add node to root
+                a#addNodeToRoot.pull-right.btn.btn-default.btn-sm.waves-effect.waves-light() Add node to root
                 h4.text-dark.header-title.m-t-0 #{flowName}
                 p.text-muted.m-b-30.font-13 #{flowDescription}
                 ul.list-group.list-group-flush
@@ -88,3 +88,5 @@ block content
                                             img.thumb-sm.rounded-circle.m-r-10(src="/assets/images/users/avatar-5.jpg" alt="task-user")
                                             span.font-bold Rick O'Shea
 block script
+    script(src="/assets/venders/artDialog/dist/dialog-plus.js")
+    script(src="/assets/pages/flow.detail.js")
