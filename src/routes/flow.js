@@ -69,6 +69,7 @@ export const FlowDetail = {
 
 
         const flow = await flowById(req.params.id, true);
+
         res.render('flow/detail', flow);
     },
 };
