@@ -48,6 +48,9 @@ a:focus {
   outline: 0;
   text-decoration: none; }
 
+.hidden {
+  display: none; }
+
 /* Footer */
 .footer {
   border-top: 1px solid rgba(0, 0, 0, 0.1);

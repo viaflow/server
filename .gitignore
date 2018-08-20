@@ -62,7 +62,7 @@ typings/
 
 # Custom
 .idea
-dist
+/dist
 
 yarn.lock
 package-lock.json
