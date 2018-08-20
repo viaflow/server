@@ -1,5 +1,7 @@
 import { Op } from 'sequelize';
+import { join } from 'path';
 import { Flow, Node } from '../models';
+import { pluginInfo } from './plugin.service';
 
 export const flowAdd = (entity) => {
     const defaults = {
@@ -67,4 +69,36 @@ export const nodeAdd = async (flowId, parentId, signal, plugin, configurations) 
     };
 
     return Node.create(entity);
+};
+
+// const recurrence = () => {
+
+// };
+
+export const nodeByFlow = async (flowId, isFormat = false) => {
+    // 当前flow的Node
+    let currentNodes = await Node.findAll({
+        where: {
+            flowId,
+        },
+        order: [['parentId', 'ASC'], ['sequence', 'ASC']],
+        raw: true,
+    });
+
+    if (isFormat) {
+        currentNodes.forEach((item) => {
+            // look for pluginInfo
+            item.pluginInfo = pluginInfo(join(process.cwd(), `./plugins/${item.plugin}`));// eslint-disable-line
+            // find children
+            item.children = currentNodes.filter(node => node.parentId === item.nodeId);// eslint-disable-line
+        });
+        // Logger.log(JSON.stringify(currentNodes.filter(n => n.parentId === 0)));
+        currentNodes = currentNodes.filter(n => n.parentId === 0);
+    } else {
+        currentNodes.forEach((item) => {
+            // look for pluginInfo
+            item.pluginInfo = pluginInfo(join(process.cwd(), `./plugins/${item.plugin}`));// eslint-disable-line
+        });
+    }
+    return currentNodes;
 };

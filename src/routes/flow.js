@@ -1,5 +1,5 @@
 import { body, param, validationResult } from 'express-validator/check';
-import { flowAdd, flowById } from '../services/flow.service';
+import { flowAdd, flowById, nodeByFlow } from '../services/flow.service';
 
 export const AddInit = {
     path: '/add',
@@ -68,9 +68,12 @@ export const FlowDetail = {
         }
 
 
+        // flow entity
         const flow = await flowById(req.params.id, true);
+        // flow nodes entity
+        const nodes = await nodeByFlow(req.params.id, true);
 
-        res.render('flow/detail', flow);
+        res.render('flow/detail', { flow, nodes });
     },
 };
 

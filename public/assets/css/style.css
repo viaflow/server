@@ -5286,16 +5286,35 @@ ul.ColVis_collection {
    Nestable
 ============= */
 .custom-dd .dd-list .dd-item .dd-handle {
-  background: #f4f8fb;
-  border: none;
-  padding: 8px 16px;
+  padding: 10px;
   height: auto;
   font-weight: 600;
-  border-radius: 3px; }
+  border-radius: 3px;
+  background-color: #fafafa;
+  border: 1px solid rgba(152, 166, 173, 0.2);
+  border-left-width: 3px;
+  border-radius: 3px;
+  padding: 10px;
+  margin-bottom: 15px; }
   .custom-dd .dd-list .dd-item .dd-handle:hover {
     color: #5fbeaa; }
 
-.custom-dd .dd-list .dd-item button {
+.custom-dd .dd-list .dd-item .handle-any {
+  border-left-color: #4c5667; }
+
+.custom-dd .dd-list .dd-item .handle-success {
+  border-left-color: #81c868; }
+
+.custom-dd .dd-list .dd-item .handle-info {
+  border-left-color: #34d3eb; }
+
+.custom-dd .dd-list .dd-item .handle-warning {
+  border-left-color: #ffbd4a; }
+
+.custom-dd .dd-list .dd-item .handle-failure {
+  border-left-color: #f05050; }
+
+button .custom-dd .dd-list .dd-item [internal="true"] {
   height: auto;
   font-size: 17px;
   margin: 8px auto;
@@ -5303,8 +5322,6 @@ ul.ColVis_collection {
   width: 30px; }
 
 .custom-dd-empty .dd-list .dd3-handle {
-  border: none;
-  background: #f4f8fb;
   height: 36px;
   width: 36px; }
   .custom-dd-empty .dd-list .dd3-handle:before {
@@ -5315,7 +5332,6 @@ ul.ColVis_collection {
 
 .custom-dd-empty .dd-list .dd3-content {
   height: auto;
-  border: none;
   padding: 8px 16px 8px 46px;
   background: #f4f8fb;
   font-weight: 600; }

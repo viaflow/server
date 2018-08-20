@@ -7,19 +7,37 @@
   .dd-list {
     .dd-item {
       .dd-handle {
-        background: $lightdark;
-        border: none;
-        padding: 8px 16px;
+        padding: 10px;
         height: auto;
         font-weight: 600;
         border-radius: 3px;
-
+        background-color: $light-alt;
+        border: 1px solid rgba($muted,0.2);
+        border-left-width: 3px;
+        border-radius: 3px;
+        padding: 10px;
+        margin-bottom: 15px;
         &:hover {
           color: $custom;
         }
       }
+      .handle-any {
+        border-left-color: $inverse;
+      }
+      .handle-success {
+        border-left-color: $success;
+      }
+      .handle-info {
+        border-left-color: $info;
+      }
+      .handle-warning {
+        border-left-color: $warning;
+      }
+      .handle-failure {
+        border-left-color: $danger;
+      }
 
-      button {
+      button & [internal="true"] {
         height: auto;
         font-size: 17px;
         margin: 8px auto;
@@ -33,8 +51,6 @@
 .custom-dd-empty {
   .dd-list {
     .dd3-handle {
-      border: none;
-      background: $lightdark;
       height: 36px;
       width: 36px;
 
@@ -49,7 +65,6 @@
     }
     .dd3-content {
       height: auto;
-      border: none;
       padding: 8px 16px 8px 46px;
       background: $lightdark;
       font-weight: 600;

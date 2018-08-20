@@ -2,6 +2,8 @@
  * Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  * Dual-licensed under the BSD or MIT licenses
  */
+
+/* eslint-disable */
 ;(function($, window, document, undefined)
 {
     var hasTouch = 'ontouchstart' in window;
@@ -43,10 +45,10 @@
             placeClass      : 'dd-placeholder',
             noDragClass     : 'dd-nodrag',
             emptyClass      : 'dd-empty',
-            expandBtnHTML   : '<button data-action="expand" type="button">Expand</button>',
-            collapseBtnHTML : '<button data-action="collapse" type="button">Collapse</button>',
+            expandBtnHTML   : '<button data-action="expand" type="button" internal="true">Expand</button>',
+            collapseBtnHTML : '<button data-action="collapse" type="button" internal="true">Collapse</button>',
             group           : 0,
-            maxDepth        : 5,
+            maxDepth        : 10,
             threshold       : 20
         };
 
@@ -74,7 +76,7 @@
                 list.setParent($(el));
             });
 
-            list.el.on('click', 'button', function(e) {
+            list.el.on('click', 'button[internal]', function(e) {
                 if (list.dragEl || (!hasTouch && e.button !== 0)) {
                     return;
                 }
@@ -122,11 +124,15 @@
             };
 
             if (hasTouch) {
+                console.log('---')
+                console.log(list.el[0])
                 list.el[0].addEventListener(eStart, onStartEvent, false);
                 window.addEventListener(eMove, onMoveEvent, false);
                 window.addEventListener(eEnd, onEndEvent, false);
                 window.addEventListener(eCancel, onEndEvent, false);
             } else {
+                console.log('===')
+                console.log(list.el)
                 list.el.on(eStart, onStartEvent);
                 list.w.on(eMove, onMoveEvent);
                 list.w.on(eEnd, onEndEvent);

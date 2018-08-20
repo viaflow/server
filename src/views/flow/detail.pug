@@ -1,25 +1,25 @@
 extends ../layout
 block css
     link(href="/assets/venders/bootstrap-tagsinput/css/bootstrap-tagsinput.css" rel="stylesheet")
-
+    link(href="/assets/venders/nestable/jquery.nestable.css" rel="stylesheet")
 block content
     .row
-        .col-lg-6
+        .col-lg-4
             .card-box
                 //- a.pull-right.btn.btn-default.btn-sm.waves-effect.waves-light() Update basic
-                h4.text-dark.header-title.m-t-0 #{flowName}
-                p.text-muted.m-b-30.font-13 #{flowDescription}
+                h4.text-dark.header-title.m-t-0 #{flow.flowName}
+                p.text-muted.m-b-30.font-13 #{flow.flowDescription}
                 form(role="form" method='post')
                     .form-group.hidden
                         label(for="flowId") Flow Id
-                        input#flowId.form-control(type="text" placeholder="Enter flow name" name="flowId" value=flowId)
+                        input#flowId.form-control(type="text" placeholder="Enter flow name" name="flowId" value=flow.flowId)
                     .form-group
                         label(for="flowName") Flow name
-                        input#flowName.form-control(type="text" placeholder="Enter flow name" name="flowName" value=flowName)
+                        input#flowName.form-control(type="text" placeholder="Enter flow name" name="flowName" value=flow.flowName)
                     .tags-default
                         label(for="flowTags") Flow tags
                         .form-group
-                            input#flowTags.form-control(type="text" data-role="tagsinput" placeholder="add tags" name="flowTags" value=flowTags)
+                            input#flowTags.form-control(type="text" data-role="tagsinput" placeholder="add tags" name="flowTags" value=flow.flowTags)
                             small#emailHelp.form-text.text-muted Press enter to add new tag.
                     .form-group
                         label(for="triggerType") Trigger type
@@ -27,93 +27,49 @@ block content
                             option(value="active" selected) Cron表达式触发
                     .form-group
                         label(for="cron") Cron expression
-                        input#cron.form-control(type="text" placeholder="cron expression here" name="cron" value=cron)
+                        input#cron.form-control(type="text" placeholder="cron expression here" name="cron" value=flow.cron)
                     .form-group
                         label(for="flowTimezone") Cron expression timezone
-                        input#flowTimezone.form-control(type="text" placeholder="cron expression timezone" name="flowTimezone" value=flowTimezone readonly)
+                        input#flowTimezone.form-control(type="text" placeholder="cron expression timezone" name="flowTimezone" value=flow.flowTimezone readonly)
                     .form-group
                         label(for="flowDescription") Flow description
                         textarea.form-control(rows="5" name="flowDescription")
-                            | #{flowDescription}
+                            | #{flow.flowDescription}
                     button.btn.btn-success(type="submit") Update
-        .col-lg-6
+        .col-lg-8
             .card-box
                 a#addNodeToRoot.pull-right.btn.btn-default.btn-sm.waves-effect.waves-light(href="#") Add to root
                 h4.text-dark.header-title.m-t-0 Flow plugins
                 p.text-muted.m-b-30.font-13
                     | You could add or edit flow/plugins here
-                ul#upcoming.sortable-list.taskList.list-unstyled
-                    li#task1.task-warning
-                        span.font-bold Petey Cruiser
-                        .m-t-20
-                            p.pull-right.m-b-0.button-list
-                                button.btn.btn-icon.btn-inverse.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Same level")
-                                    i.fa.fa-arrow-down
-                                button.btn.btn-warning.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If failure")
-                                    i.fa.fa-arrow-left
-                                button.btn.btn-success.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If success")
-                                    i.fa.fa-arrow-right
-                                button.btn.btn-info.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Edit")
-                                    i.fa.fa-pencil
-                                button.btn.btn-danger.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Remove(include subs)")
-                                    i.fa.fa-trash
-                            p.m-b-0
-                                a.text-muted(href="")
-                                    img.thumb-sm.rounded-circle.m-r-10(src="/assets/images/users/avatar-1.jpg" alt="task-user")
-                                    span.font-bold HTTP Call
-                    //- li#task2.task-success
-                    //-     .checkbox.checkbox-custom.checkbox-single.pull-right
-                    //-         input(type="checkbox" aria-label="Single checkbox Two")
-                    //-         label
-                    //-     |                                             Many desktop publishing packages and web page editors now use Lorem.
-                    //-     .m-t-20
-                    //-         p.pull-right.m-b-0
-                    //-             i.fa.fa-clock-o
-                    //-             span(title="15/06/2016 12:56") 15/06/2016
-                    //-         p.m-b-0
-                    //-             a.text-muted(href="")
-                    //-                 img.thumb-sm.rounded-circle.m-r-10(src="assets/images/users/avatar-2.jpg" alt="task-user")
-                    //-                 span.font-bold Anna Sthesia
-                    //- li#task3
-                    //-     .checkbox.checkbox-custom.checkbox-single.pull-right
-                    //-         input(type="checkbox" aria-label="Single checkbox Two")
-                    //-         label
-                    //-     |                                             If you are going to use a passage of Lorem Ipsum..
-                    //-     .m-t-20
-                    //-         p.pull-right.m-b-0
-                    //-             i.fa.fa-clock-o
-                    //-             span(title="15/06/2016 12:56") 15/06/2016
-                    //-         p.m-b-0
-                    //-             a.text-muted(href="")
-                    //-                 img.thumb-sm.rounded-circle.m-r-10(src="assets/images/users/avatar-3.jpg" alt="task-user")
-                    //-                 span.font-bold Gail Forcewind
-                    //- li#task4.task-info
-                    //-     .checkbox.checkbox-custom.checkbox-single.pull-right
-                    //-         input(type="checkbox" aria-label="Single checkbox Two")
-                    //-         label
-                    //-     |                                             It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
-                    //-     .m-t-20
-                    //-         p.pull-right.m-b-0
-                    //-             i.fa.fa-clock-o
-                    //-             span(title="15/06/2016 12:56") 15/06/2016
-                    //-         p.m-b-0
-                    //-             a.text-muted(href="")
-                    //-                 img.thumb-sm.rounded-circle.m-r-10(src="assets/images/users/avatar-4.jpg" alt="task-user")
-                    //-                 span.font-bold Maya Didas
-                    //- li#task5.task-danger
-                    //-     .checkbox.checkbox-custom.checkbox-single.pull-right
-                    //-         input(type="checkbox" aria-label="Single checkbox Two")
-                    //-         label
-                    //-     |                                             There are many variations of passages of Lorem Ipsum available.
-                    //-     .m-t-20
-                    //-         p.pull-right.m-b-0
-                    //-             i.fa.fa-clock-o
-                    //-             span(title="15/06/2016 12:56") 15/06/2016
-                    //-         p.m-b-0
-                    //-             a.text-muted(href="")
-                    //-                 img.thumb-sm.rounded-circle.m-r-10(src="assets/images/users/avatar-5.jpg" alt="task-user")
-                    //-                 span.font-bold Rick O'Shea
+                #nestable_list_1.custom-dd.dd           
+                    mixin nodeCascade(flowNodes)
+                        ol.dd-list
+                            each node in flowNodes
+                                li.dd-item(data-id=node.nodeId)
+                                    div(class=`dd-handle handle-${node.signal.toLowerCase()}`)
+                                        span.font-bold #{node.pluginInfo.name} (#{node.nodeId})
+                                            .m-t-20
+                                                p.pull-right.m-b-0.button-list
+                                                    button.btn.btn-icon.btn-inverse.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Same level")
+                                                        i.fa.fa-arrow-down
+                                                    button.btn.btn-warning.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If failure")
+                                                        i.fa.fa-arrow-left
+                                                    button.btn.btn-success.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If success")
+                                                        i.fa.fa-arrow-right
+                                                    button.btn.btn-info.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Edit")
+                                                        i.fa.fa-pencil
+                                                    button.btn.btn-danger.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Remove(include subs)")
+                                                        i.fa.fa-trash
+                                                p.m-b-0
+                                                    a.text-muted(href="")
+                                                        img.thumb-sm.rounded-circle.m-r-10(src="/assets/images/users/avatar-1.jpg" alt="task-user")
+                                                        span.font-bold HTTP Call
+                                    if node.children.length && node.children.length > 0
+                                        +nodeCascade(node.children)
+                    +nodeCascade(nodes)  
 block script
     script(src="/assets/venders/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js")
     script(src="/assets/venders/artDialog/dist/dialog-plus.js")
+    script(src="/assets/venders/nestable/jquery.nestable.js")
     script(src="/assets/pages/flow.detail.js")
