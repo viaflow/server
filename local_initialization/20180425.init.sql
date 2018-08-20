@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 16/08/2018 17:40:43
+ Date: 20/08/2018 18:34:41
 */
 
 SET NAMES utf8mb4;
@@ -66,13 +66,20 @@ CREATE TABLE `node` (
   `updater` int(10) unsigned NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`nodeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of node
 -- ----------------------------
 BEGIN;
 INSERT INTO `node` VALUES (1, 1, 0, 0, 'ANY', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-16 09:40:12', 1, '2018-08-16 09:40:12');
+INSERT INTO `node` VALUES (2, 1, 0, 1, 'ANY', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:09:00', 1, '2018-08-20 05:09:00');
+INSERT INTO `node` VALUES (3, 1, 0, 2, 'ANY', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"https://www.qq.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:10:08', 1, '2018-08-20 05:10:08');
+INSERT INTO `node` VALUES (4, 1, 0, 3, 'ANY', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:11:36', 1, '2018-08-20 05:11:36');
+INSERT INTO `node` VALUES (5, 1, 0, 4, 'ANY', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:12:04', 1, '2018-08-20 05:12:04');
+INSERT INTO `node` VALUES (6, 1, 1, 0, 'SUCCESS', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:33:45', 1, '2018-08-20 13:33:49');
+INSERT INTO `node` VALUES (7, 1, 6, 0, 'SUCCESS', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:35:18', 1, '2018-08-20 13:35:22');
+INSERT INTO `node` VALUES (8, 1, 7, 0, 'SUCCESS', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 14:14:56', 1, '2018-08-20 14:14:59');
 COMMIT;
 
 -- ----------------------------
@@ -113,7 +120,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES (1, 'sa1', 'test-sa1', '123456', '0', 'all', 1, '2018-06-16 00:00:00', 1, '2018-06-16 00:00:00');
+INSERT INTO `user` VALUES (1, 'sa1', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzYTEiLCJyb2xlIjoiMCIsImlhdCI6MTUzNDc1ODAzOCwiZXhwIjoxNTM1MzYyODM4LCJhdWQiOiJjcm9uZmxvdyJ9.qFx5FaMarNCUQq9dPA3FDvPbJ41pH_-G2AuuFaDXRFg', '123456', '0', 'all', 1, '2018-06-16 00:00:00', 1, '2018-08-20 09:40:38');
 INSERT INTO `user` VALUES (2, 'sa2', 'test-sa2', '123456', '0', 'all', 1, '2018-06-16 00:00:00', 1, '2018-06-16 00:00:00');
 COMMIT;
 
