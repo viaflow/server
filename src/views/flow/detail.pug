@@ -6,7 +6,6 @@ block content
     .row
         .col-lg-4
             .card-box
-                //- a.pull-right.btn.btn-default.btn-sm.waves-effect.waves-light() Update basic
                 h4.text-dark.header-title.m-t-0 #{flow.flowName}
                 p.text-muted.m-b-30.font-13 #{flow.flowDescription}
                 form(role="form" method='post')
@@ -48,23 +47,23 @@ block content
                             each node in flowNodes
                                 li.dd-item(data-id=node.nodeId)
                                     div(class=`dd-handle handle-${node.signal.toLowerCase()}`)
-                                        span.font-bold #{node.pluginInfo.name} (#{node.nodeId})
+                                        span.font-bold #{node.pluginInfo.name} (ID: #{node.nodeId}) (爹: #{node.parentId})↖
                                             .m-t-20
                                                 p.pull-right.m-b-0.button-list
-                                                    button.btn.btn-icon.btn-inverse.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Same level")
+                                                    button.btn.btn-icon.btn-inverse.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Same level" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="ANY" data-add-node="1")
                                                         i.fa.fa-arrow-down
-                                                    button.btn.btn-warning.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If failure")
+                                                    button.btn.btn-warning.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If failure" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="FAILURE" data-add-node="1")
                                                         i.fa.fa-arrow-left
-                                                    button.btn.btn-success.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If success")
+                                                    button.btn.btn-success.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If success" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="SUCCESS" data-add-node="1")
                                                         i.fa.fa-arrow-right
-                                                    button.btn.btn-info.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Edit")
+                                                    button.btn.btn-info.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Edit" data-parent-id=node.parentId data-flow-id=node.flowId data-node-id=node.nodeId)
                                                         i.fa.fa-pencil
-                                                    button.btn.btn-danger.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Remove(include subs)")
+                                                    button.btn.btn-danger.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Remove(include subs)" data-parent-id=node.parentId data-flow-id=node.flowId data-node-id=node.nodeId)
                                                         i.fa.fa-trash
                                                 p.m-b-0
                                                     a.text-muted(href="")
                                                         img.thumb-sm.rounded-circle.m-r-10(src="/assets/images/users/avatar-1.jpg" alt="task-user")
-                                                        span.font-bold HTTP Call
+                                                        span.font-bold Signal type: #{node.signal}
                                     if node.children.length && node.children.length > 0
                                         +nodeCascade(node.children)
                     +nodeCascade(nodes)  

@@ -5322,8 +5322,7 @@ button .custom-dd .dd-list .dd-item [internal="true"] {
   width: 30px; }
 
 .custom-dd-empty .dd-list .dd3-handle {
-  height: 36px;
-  width: 36px; }
+  height: auto; }
   .custom-dd-empty .dd-list .dd3-handle:before {
     color: inherit;
     top: 7px; }
@@ -5338,9 +5337,9 @@ button .custom-dd .dd-list .dd-item [internal="true"] {
   .custom-dd-empty .dd-list .dd3-content:hover {
     color: #5fbeaa; }
 
-.custom-dd-empty .dd-list button {
-  width: 26px;
-  height: 26px;
+button .custom-dd-empty .dd-list [internal="true"] {
+  width: 30px;
+  height: auto;
   font-size: 16px;
   font-weight: 600; }
 

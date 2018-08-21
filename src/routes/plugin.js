@@ -4,7 +4,7 @@ import { pluginInfo } from '../services/plugin.service';
 import { nodeAdd } from '../services/flow.service';
 
 export const PluginsWithParams = {
-    path: '/list/:flowId?/:parentId?',
+    path: '/list/:flowId?/:parentId?/:signal?',
     method: 'get',
     auth: true,
     handler: async (req, res) => {
@@ -29,13 +29,13 @@ export const PluginsWithParams = {
 
         res.render('plugin/list', {
             plugins,
-            path: req.params.flowId !== undefined && req.params.parentId !== undefined ? `${req.params.flowId}/${req.params.parentId}` : '',
+            path: req.params.flowId !== undefined && req.params.parentId !== undefined && req.params.signal !== undefined ? `${req.params.flowId}/${req.params.parentId}/${req.params.signal}` : '',
         });
     },
 };
 
 export const DetailGet = {
-    path: '/detail/:path/:flowId?/:parentId?',
+    path: '/detail/:path/:flowId?/:parentId?/:signal?',
     method: 'get',
     auth: true,
     handler: async (req, res) => {
@@ -47,11 +47,16 @@ export const DetailGet = {
 };
 
 export const DetailPost = {
-    path: '/detail/:path/:flowId/:parentId',
+    path: '/detail/:path/:flowId/:parentId/:signal?',
     method: 'post',
     auth: true,
     handler: async (req, res) => {
-        const node = await nodeAdd(req.params.flowId, req.params.parentId, 'ANY', req.params.path, req.body);
+        const node = await nodeAdd(
+            req.params.flowId,
+            req.params.parentId,
+            req.params.signal,
+            req.params.path, req.body,
+        );
 
         res.json(node);
     },

@@ -1,6 +1,6 @@
 /* eslint-disable */
 (function ($) {
-    const pluginDialog = (flow, parent) => {
+    const pluginDialog = (flow, parent, signal) => {
         const option = {
             url: '/plugin/list',
             width: '70em',
@@ -15,25 +15,28 @@
                 return false;
             },
         };
-        if (flow !== undefined && parent !== undefined) {
-            option.url += `/${flow}/${parent}`;
+        if (flow !== undefined && parent !== undefined && signal !== undefined) {
+            option.url += `/${flow}/${parent}/${signal}`;
+            return top.dialog(option);
+        } else {
+            alert(`params not completed, ${[flow, parent, signal]}`)
         }
-        return top.dialog(option);
     };
 
     $('#addNodeToRoot').click(() => {
         // add to root
-        const pluginList = pluginDialog($('#flowId').val(), 0);
+        const pluginList = pluginDialog($('#flowId').val(), 0, 'ANY');
         pluginList.showModal();
         return false;
     });
 
-    $('#nestable_list_1').nestable({
-        maxDepth: 10,
-        group: 1,
+    $('button[data-add-node=1]').click(function () {
+        alert($(this).attr('data-parent-id'))
     })
-    $('#nestable_list_2').nestable({
-        maxDepth: 10,
-        group: 1,
-    })
+
+    // 暂时不拖动，UI有bug，没精力调整
+    // $('#nestable_list_1').nestable({
+    //     maxDepth: 10,
+    //     group: 1,
+    // })
 }(window.jQuery));

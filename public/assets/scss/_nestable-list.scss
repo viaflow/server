@@ -51,8 +51,8 @@
 .custom-dd-empty {
   .dd-list {
     .dd3-handle {
-      height: 36px;
-      width: 36px;
+      height: auto;
+      // width: 36px;
 
       &:before {
         color: inherit;
@@ -73,9 +73,9 @@
         color: $custom;
       }
     }
-    button {
-      width: 26px;
-      height: 26px;
+    button & [internal="true"] {
+      width: 30px;
+      height: auto;
       font-size: 16px;
       font-weight: 600;
     }

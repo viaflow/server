@@ -39,12 +39,11 @@
     background-position: 0 0, 30px 30px;
 }
 
-.dd-dragel { position: absolute; pointer-events: none; z-index: 9999; background-color: #fafafa;}
-.dd-dragel > .dd-item .dd-handle { margin-top: 70px; }
+.dd-dragel { position: absolute; pointer-events: none; z-index: 9999; }
+.dd-dragel > .dd-item .dd-handle { margin-top: 0; }
 .dd-dragel .dd-handle {
-    background-color: #fafafa;
-    -webkit-box-shadow: 2px 4px 6px 2px rgba(0,0,0,.1);
-            box-shadow: 2px 4px 6px 2px rgba(0,0,0,.1);
+    -webkit-box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
+            box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
 }
 
 
