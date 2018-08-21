@@ -47,7 +47,7 @@ export const DetailGet = {
 };
 
 export const DetailPost = {
-    path: '/detail/:path/:flowId/:parentId/:signal?',
+    path: '/detail/:path/:flowId/:parentId/:signal',
     method: 'post',
     auth: true,
     handler: async (req, res) => {

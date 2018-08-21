@@ -58,7 +58,7 @@ export const nodeAdd = async (flowId, parentId, signal, plugin, configurations) 
     const entity = {
         flowId,
         parentId,
-        signal: parseInt(parentId, 0) === 0 ? 'ANY' : signal,
+        signal,
         plugin,
         sequence,
         configurations: JSON.stringify(configurations),

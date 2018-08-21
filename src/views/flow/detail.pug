@@ -50,11 +50,11 @@ block content
                                         span.font-bold #{node.pluginInfo.name} (ID: #{node.nodeId}) (爹: #{node.parentId})↖
                                             .m-t-20
                                                 p.pull-right.m-b-0.button-list
-                                                    button.btn.btn-icon.btn-inverse.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Same level" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="ANY" data-add-node="1")
+                                                    button.btn.btn-icon.btn-inverse.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Same level" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="ANY" data-add-node="1" data-node-id=node.nodeId)
                                                         i.fa.fa-arrow-down
-                                                    button.btn.btn-warning.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If failure" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="FAILURE" data-add-node="1")
+                                                    button.btn.btn-warning.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If failure" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="FAILURE" data-add-node="1" data-node-id=node.nodeId)
                                                         i.fa.fa-arrow-left
-                                                    button.btn.btn-success.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If success" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="SUCCESS" data-add-node="1")
+                                                    button.btn.btn-success.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If success" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="SUCCESS" data-add-node="1" data-node-id=node.nodeId)
                                                         i.fa.fa-arrow-right
                                                     button.btn.btn-info.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Edit" data-parent-id=node.parentId data-flow-id=node.flowId data-node-id=node.nodeId)
                                                         i.fa.fa-pencil

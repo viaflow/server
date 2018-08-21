@@ -31,7 +31,12 @@
     });
 
     $('button[data-add-node=1]').click(function () {
-        alert($(this).attr('data-parent-id'))
+        const parentId = $(this).attr('data-node-id');
+        const flowId = $(this).attr('data-flow-id');
+        const signal = $(this).attr('data-signal');
+        const pluginList = pluginDialog(flowId, parentId, signal);
+        pluginList.showModal();
+        return false;
     })
 
     // 暂时不拖动，UI有bug，没精力调整
