@@ -71,10 +71,6 @@ export const nodeAdd = async (flowId, parentId, signal, plugin, configurations) 
     return Node.create(entity);
 };
 
-// const recurrence = () => {
-
-// };
-
 export const nodeByFlow = async (flowId, isFormat = false) => {
     // 当前flow的Node
     let currentNodes = await Node.findAll({
@@ -101,4 +97,12 @@ export const nodeByFlow = async (flowId, isFormat = false) => {
         });
     }
     return currentNodes;
+};
+
+export const flowUpdateById = async (entity) => {
+    const flow = await flowById(entity.flowId);
+    entity.updatedAt = new Date();
+    entity.updater = 1;
+    const result = await flow.update(entity, { fields: ['flowName', 'flowTags', 'triggerType', 'cron', 'flowTimezone', 'flowState', 'flowDescription', 'updatedAt', 'updater'] });
+    return result;
 };

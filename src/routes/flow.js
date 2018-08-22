@@ -1,5 +1,7 @@
 import { body, param, validationResult } from 'express-validator/check';
-import { flowAdd, flowById, nodeByFlow } from '../services/flow.service';
+import {
+    flowAdd, flowById, nodeByFlow, flowUpdateById,
+} from '../services/flow.service';
 
 export const AddInit = {
     path: '/add',
@@ -77,6 +79,31 @@ export const FlowDetail = {
     },
 };
 
+export const FlowUpdate = {
+    path: '/update',
+    method: 'post',
+    validator: [
+        body('flowId').not().isEmpty().isInt()
+            .withMessage('Flow update params missing'),
+    ],
+    handler: async (req, res) => {
+        const errors = validationResult(req).formatWith(({ msg }) => msg).array();
+        if (errors.length > 0) {
+            // TODO: 这里需要handle一下
+            res.json(errors);
+            return;
+        }
+
+        const flowBasicEntity = req.body;
+        const result = await flowUpdateById(flowBasicEntity);
+        // TODO: 如果cron、state或者type有变化，需要注销以前的Job，并注册新的Job
+        if (req.is(req.get('content-type')) && req.is(req.get('content-type')).indexOf('json') > -1) {
+            res.json(result.dataValues);
+            return;
+        }
+        res.redirect(`/flow/detail/${req.body.flowId}`);
+    },
+};
 
 export const Flows = {
 

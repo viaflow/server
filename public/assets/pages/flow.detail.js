@@ -39,6 +39,29 @@
         return false;
     })
 
+    $('a[data-state][data-value]').click(function () {
+        const flowId = $('#flowId').val();
+        const flowState = $(this).attr('data-value');
+        $.ajax({
+            dataType: 'json',
+            url: '/flow/update',
+            contentType: 'application/json',
+            data: JSON.stringify({ flowId, flowState }),
+            method: 'POST',
+            type: 'POST',
+            // beforeSend: $.Notification.notify('warning', 'top right', 'Start request...', `Try to request with data ${flowState}`),
+            success: (data, code, xhr) => {
+                $('.flowState').val(flowState);
+                $.Notification.notify('success', 'top right', 'Request completed', `Flow data updated, state to ${flowState}`)
+                // console.log(data, code, xhr)
+            },
+            error: (xhr, textStatus, error) => {
+                $.Notification.notify('error', 'top right', 'Request failure', `Flow data not updated, error is ${xhr.status}`)
+                console.log(xhr);
+            }
+        })
+    })
+
     // 暂时不拖动，UI有bug，没精力调整
     // $('#nestable_list_1').nestable({
     //     maxDepth: 10,

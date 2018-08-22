@@ -8,7 +8,8 @@ module.exports = {
         "no-console": 2,
         "indent": ['error', 4],
         "quotes": ['error', 'single'],
-        'no-unused-expressions': 0
+        'no-unused-expressions': 0,
+        "no-param-reassign": 0,
     },
     parserOptions: {
         "ecmaVersion": 2017,

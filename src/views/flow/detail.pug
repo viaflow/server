@@ -8,7 +8,7 @@ block content
             .card-box
                 h4.text-dark.header-title.m-t-0 #{flow.flowName}
                 p.text-muted.m-b-30.font-13 #{flow.flowDescription}
-                form(role="form" method='post')
+                form(role="form" method='post' action='/flow/update')
                     .form-group.hidden
                         label(for="flowId") Flow Id
                         input#flowId.form-control(type="text" placeholder="Enter flow name" name="flowId" value=flow.flowId)
@@ -34,7 +34,17 @@ block content
                         label(for="flowDescription") Flow description
                         textarea.form-control(rows="5" name="flowDescription")
                             | #{flow.flowDescription}
-                    button.btn.btn-success(type="submit") Update
+                    .form-group
+                        label(for="flowState") Flow state
+                        .input-group.mb-3
+                            .input-group-prepend
+                                button.btn.btn-purple.waves-effect.waves-light.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") State 
+                                .dropdown-menu
+                                    a.dropdown-item(data-value='ACTIVE' data-state='1') Active
+                                    a.dropdown-item(data-value='PAUSE' data-state='0') Pause
+                            input.flowState.form-control(type="text" placeholder="" value=flow.flowState readonly)
+                    .form-group.text-right.m-b-0
+                        button.btn.btn-success(type="submit") Update
         .col-lg-8
             .card-box
                 a#addNodeToRoot.pull-right.btn.btn-default.btn-sm.waves-effect.waves-light(href="#") Add to root
@@ -50,7 +60,7 @@ block content
                                         span.font-bold #{node.pluginInfo.name} (ID: #{node.nodeId}) (爹: #{node.parentId})↖
                                             .m-t-20
                                                 p.pull-right.m-b-0.button-list
-                                                    button.btn.btn-icon.btn-inverse.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Same level" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="ANY" data-add-node="1" data-node-id=node.nodeId)
+                                                    button.btn.btn-icon.btn-inverse.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Anyway" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="ANY" data-add-node="1" data-node-id=node.nodeId)
                                                         i.fa.fa-arrow-down
                                                     button.btn.btn-warning.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="If failure" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="FAILURE" data-add-node="1" data-node-id=node.nodeId)
                                                         i.fa.fa-arrow-left
@@ -71,4 +81,6 @@ block script
     script(src="/assets/venders/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js")
     script(src="/assets/venders/artDialog/dist/dialog-plus.js")
     script(src="/assets/venders/nestable/jquery.nestable.js")
+    script(src="/assets/venders/notifyjs/js/notify.js")
+    script(src="/assets/venders/notifications/notify-metro.js")
     script(src="/assets/pages/flow.detail.js")
