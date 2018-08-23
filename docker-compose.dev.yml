@@ -21,6 +21,7 @@ services:
       - TOKEN_SECRET=cronflow
       - TOKEN_EXPRIED=7d
       - TOKEN_ALGORITHMS=HS256
+      - REDIS_CONNECTION_STR=redis://:cronflow@127.0.0.1:6379/0
     command: "npm run dev"
     ports:
       - "8080:8080"
@@ -38,3 +39,11 @@ services:
       - "3306"
     volumes:
       - "${PWD}/local_initialization:/docker-entrypoint-initdb.d"
+  cronflow-redis:
+    restart: "no"
+    iamge: "redis:alpine"
+    command: "redis-server /usr/local/etc/redis/redis.conf"
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"

@@ -12,6 +12,7 @@ const dbConf = {
         idle: 5000,
     },
     logging: true,
+    redis: process.env.REDIS_CONNECTION_STR,
 };
 
 const tokenConf = {

@@ -10,6 +10,7 @@ module.exports = {
         "quotes": ['error', 'single'],
         'no-unused-expressions': 0,
         "no-param-reassign": 0,
+        "max-len": 0,
     },
     parserOptions: {
         "ecmaVersion": 2017,
@@ -32,5 +33,7 @@ module.exports = {
         now: true,
         route: true,
         sequelize: true,
+        CronFlow: true,
+        redis: true,
     }
 };

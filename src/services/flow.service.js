@@ -1,5 +1,6 @@
 import { Op } from 'sequelize';
 import { join } from 'path';
+import { CronJob } from 'cron';
 import { Flow, Node } from '../models';
 import { pluginInfo } from './plugin.service';
 
@@ -101,8 +102,36 @@ export const nodeByFlow = async (flowId, isFormat = false) => {
 
 export const flowUpdateById = async (entity) => {
     const flow = await flowById(entity.flowId);
+    const hookFlag = (entity.cron && entity.cron !== flow.cron) || (entity.flowState && entity.flowState !== flow.flowState);
     entity.updatedAt = new Date();
     entity.updater = 1;
     const result = await flow.update(entity, { fields: ['flowName', 'flowTags', 'triggerType', 'cron', 'flowTimezone', 'flowState', 'flowDescription', 'updatedAt', 'updater'] });
+
+    // if cron expression or cron job state changed, it should do re-register or cancel action.
+    // TODO: Think about the sequlize hook 'afterUpdate' maybe can handling it more perfect
+    if (hookFlag) {
+        // destory old CronFlow and release memory
+        let currentJob = CronFlow[`c_${result.dataValues.flowId}`];
+        if (currentJob) {
+            currentJob.stop();
+            currentJob = undefined; // V8'll release memory by its GC
+        }
+
+        if (result.dataValues.flowState === 'ACTIVE') {
+            // Re-register job from memory if the state is ACTIVE only
+            CronFlow[`c_${result.dataValues.flowId}`] = new CronJob({
+                cronTime: result.dataValues.cron,
+                timeZone: result.dataValues.flowTimezone,
+                runOnInit: false,
+                async onTick() {
+                    Logger.log(`c_${result.dataValues.flowId} triggered`);
+                    // generate to redis with lpush
+                    await redis.lpush('croned', `c_${result.dataValues.flowId}`);
+                },
+            });
+        }
+    }
+    const test = await redis.lpush('croned', `c_${result.dataValues.flowId}`);
+    Logger.log(test);
     return result;
 };
