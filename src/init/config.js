@@ -11,8 +11,14 @@ const dbConf = {
         acquire: 2000,
         idle: 5000,
     },
-    logging: true,
-    redis: process.env.REDIS_CONNECTION_STR,
+    logging: false,
+};
+
+const redisConf = {
+    host: process.env.REDIS_HOST || '127.0.0.1',
+    port: process.env.REDIS_PORT || 6379,
+    auth: process.env.REDIS_AUTH || null,
+    db: process.env.REDIS_DB || 0,
 };
 
 const tokenConf = {
@@ -37,5 +43,5 @@ const applicationConf = {
 };
 
 export {
-    dbConf, tokenConf, applicationConf,
+    dbConf, tokenConf, applicationConf, redisConf,
 };

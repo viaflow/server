@@ -8,8 +8,10 @@ services:
     working_dir: /cronflow
     depends_on: 
       - cronflow-db
+      - cronflow-redis
     links:
       - cronflow-db:mysql
+      - cronflow-redis:redis
     environment:
       - PORT=8080
       - DATABASE_DIALECT=mysql
@@ -21,7 +23,10 @@ services:
       - TOKEN_SECRET=cronflow
       - TOKEN_EXPRIED=7d
       - TOKEN_ALGORITHMS=HS256
-      - REDIS_CONNECTION_STR=redis://:cronflow@127.0.0.1:6379/0
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_AUTH=cronflow
+      - REDIS_DB=0
     command: "npm run dev"
     ports:
       - "8080:8080"
@@ -41,9 +46,11 @@ services:
       - "${PWD}/local_initialization:/docker-entrypoint-initdb.d"
   cronflow-redis:
     restart: "no"
-    iamge: "redis:alpine"
+    image: "redis:alpine"
+    depends_on: 
+      - cronflow-db
     command: "redis-server /usr/local/etc/redis/redis.conf"
     volumes:
-      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - "${PWD}/redis.conf:/usr/local/etc/redis/redis.conf"
     ports:
       - "6379:6379"

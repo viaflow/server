@@ -100,6 +100,52 @@ export const nodeByFlow = async (flowId, isFormat = false) => {
     return currentNodes;
 };
 
+export const flowActived = raw => Flow.findAll({
+    where: {
+        flowState: 'ACTIVE',
+        triggerType: 'active',
+    },
+    raw,
+});
+
+export const flowRegistration = (flowId, cron, options) => {
+    // destory old CronFlow and release memory
+    if (CronFlow[`c_${flowId}`]) {
+        CronFlow[`c_${flowId}`].stop();
+        CronFlow[`c_${flowId}`] = undefined;
+    }
+    // registtration it
+    CronFlow[`c_${flowId}`] = new CronJob({
+        cronTime: cron,
+        ...options,
+        async onTick() {
+            Logger.log(`c_${flowId} triggered`);
+            // generate to redis with lpush
+            await redis.lpush('croned', `c_${flowId}_${now()}`);
+        },
+    });
+    CronFlow[`c_${flowId}`].start();
+    Logger.log(`CronFlow ${flowId} registed. ${cron}`);
+    return CronFlow.length;
+};
+
+export const flowRegisterOnSystemInit = async () => {
+    const allActivedFlows = await flowActived(true);
+    let result = 0;
+    allActivedFlows.forEach((flow) => {
+        try {
+            flowRegistration(flow.flowId, flow.cron, {
+                runOnInit: false,
+                timeZone: flow.flowTimezone,
+            });
+            result += 1;
+        } catch (e) {
+            Logger.error(`Flow ${flow.flowId} cannot be registed, ${e.message}`);
+        }
+    });
+    return result;
+};
+
 export const flowUpdateById = async (entity) => {
     const flow = await flowById(entity.flowId);
     const hookFlag = (entity.cron && entity.cron !== flow.cron) || (entity.flowState && entity.flowState !== flow.flowState);
@@ -109,29 +155,12 @@ export const flowUpdateById = async (entity) => {
 
     // if cron expression or cron job state changed, it should do re-register or cancel action.
     // TODO: Think about the sequlize hook 'afterUpdate' maybe can handling it more perfect
-    if (hookFlag) {
-        // destory old CronFlow and release memory
-        let currentJob = CronFlow[`c_${result.dataValues.flowId}`];
-        if (currentJob) {
-            currentJob.stop();
-            currentJob = undefined; // V8'll release memory by its GC
-        }
-
-        if (result.dataValues.flowState === 'ACTIVE') {
-            // Re-register job from memory if the state is ACTIVE only
-            CronFlow[`c_${result.dataValues.flowId}`] = new CronJob({
-                cronTime: result.dataValues.cron,
-                timeZone: result.dataValues.flowTimezone,
-                runOnInit: false,
-                async onTick() {
-                    Logger.log(`c_${result.dataValues.flowId} triggered`);
-                    // generate to redis with lpush
-                    await redis.lpush('croned', `c_${result.dataValues.flowId}`);
-                },
-            });
-        }
+    if (!hookFlag) {
+        Logger.log('Job need not re-register.');
+        return result;
     }
-    const test = await redis.lpush('croned', `c_${result.dataValues.flowId}`);
-    Logger.log(test);
+    // If not, destory old CronFlow and release memory
+    flowRegistration(result.dataValues.flowId, result.dataValues.cron, { runOnInit: false, timeZone: result.dataValues.flowTimezone });
+
     return result;
 };

@@ -18,7 +18,7 @@ const setGlobal = () => {
     global.route = express.Router();
     global._ = _;
     global.NODE_ENV = process.env.NODE_ENV || 'development';
-    global.now = moment().format('YYYY-MM-DD HH:mm:ss');
+    global.now = () => moment().format('YYYY-MM-DD HH:mm:ss');
     global.CronFlow = {};
 };
 // endregion
