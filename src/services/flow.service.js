@@ -119,7 +119,7 @@ export const flowRegistration = (flowId, cron, options) => {
         cronTime: cron,
         ...options,
         async onTick() {
-            Logger.log(`c_${flowId} triggered`);
+            Logger.log(`c_${flowId} triggered, time is ${now()}`);
             // generate to redis with lpush
             await redis.lpush('croned', `c_${flowId}_${now()}`);
         },
