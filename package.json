@@ -51,6 +51,7 @@
     "pug": "^2.0.3",
     "rimraf": "^2.6.2",
     "sequelize": "^5.0.0-beta.10",
+    "simple-git": "^1.96.0",
     "tracer": "^0.9.1"
   },
   "devDependencies": {

@@ -1,5 +1,6 @@
 import { spawnSync } from 'child_process';
 import { isExistsFile, isExistsDir } from '../../utils/fs.utils';
+import { clone } from '../../utils/git.utils';
 import { applicationConf } from '../init/config';
 
 /**
@@ -76,7 +77,20 @@ export const pluginInfo = (path) => {
  * 下载新的插件根据git地址
  * @param {String} repoUri 插件的git地址
  */
-export const downloadPlugin = (repoUri) => {
-    Logger.log(repoUri);
-    return repoUri;
+export const pluginAdd = (repoUri, rename) => {
+    /**
+     * 1. 根据repo下载到本地
+     * 2. checkout到master
+     */
+
+    clone(repoUri, rename);
+};
+
+/**
+ * Re download/install deps/build plugin
+ * @param {Plugin} Plugin model entity
+ */
+export const refreshPlugin = (pluginEntity) => {
+    Logger.log(pluginEntity);
+    return pluginEntity;
 };

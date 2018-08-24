@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { join } from 'path';
-import { pluginInfo } from '../services/plugin.service';
+import { pluginInfo, pluginAdd } from '../services/plugin.service';
 import { nodeAdd } from '../services/flow.service';
 
 export const PluginsWithParams = {
@@ -59,5 +59,15 @@ export const DetailPost = {
         );
 
         res.json(node);
+    },
+};
+
+export const InitTest = {
+    path: '/test',
+    method: 'get',
+    handler: async (req, res) => {
+        pluginAdd('https://github.com/viaflow/agent');
+        pluginAdd('https://github.com/viaflow/agent', 'agent1');
+        res.send(1);
     },
 };
