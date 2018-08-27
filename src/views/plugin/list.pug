@@ -15,8 +15,8 @@ block content
             a.btn.btn-default.waves-effect.waves-light.m-b-30(href="#custom-modal" data-animation="fadein" data-plugin="custommodal" data-overlayspeed="200" data-overlaycolor="#36404a")
                 i.md.md-add
                 |  Add new plugin
-    each plugin in plugins
-        .row
+    .row
+        each plugin in plugins
             .col-sm-6.col-lg-4
                 .card-box
                     .contact-card
@@ -24,19 +24,19 @@ block content
                             img.rounded(src="https://raw.githubusercontent.com/sirius1024/pubimgs/master/fake-avatar/fake3.png" alt="")
                         .member-info
                             h4.m-t-0.m-b-5.header-title
-                                b #{plugin.name}
-                            p.text-muted #{plugin.desc}
+                                b #{plugin.pluginName}
+                            p.text-muted #{plugin.pluginDesc}
                             p.text-dark
                                 i.md.md-contacts.m-r-10
                                 small #{plugin.author}
                             .contact-action
-                                a.btn.btn-success.btn-sm(href=`/plugin/detail/${plugin.path}/${path}`)
+                                a.btn.btn-success.btn-sm(href=`/plugin/detail/${plugin.pluginId}/${path}`)
                                     i.md.md-done
                                 a.btn.btn-danger.btn-sm.m-l-5
                                     i.md.md-delete
                         ul.social-links.list-inline.m-0
                             li.list-inline-item
-                                a.tooltips(href=plugin.repo target="_blank" data-placement="top" data-toggle="tooltip" data-original-title="Git")
+                                a.tooltips(href=plugin.pluginRepo target="_blank" data-placement="top" data-toggle="tooltip" data-original-title="Git")
                                     i.fa.fa-git-square
                             li.list-inline-item
                                 a.tooltips(target="_blank" data-placement="top" data-toggle="tooltip" href=plugin.issue data-original-title="Issues")

@@ -6,7 +6,7 @@ export default sequelize.define('node', {
     parentId: Sequelize.BIGINT(11),
     sequence: Sequelize.INTEGER,
     signal: Sequelize.ENUM('ANY', 'SUCCESS', 'FAILURE'),
-    plugin: Sequelize.STRING,
+    pluginId: Sequelize.BIGINT(11),
     configurations: Sequelize.STRING,
     createdAt: Sequelize.DATE,
     creator: Sequelize.BIGINT(11),

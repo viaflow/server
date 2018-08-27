@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 20/08/2018 18:34:41
+ Date: 27/08/2018 15:34:20
 */
 
 SET NAMES utf8mb4;
@@ -59,27 +59,58 @@ CREATE TABLE `node` (
   `parentId` bigint(20) unsigned NOT NULL COMMENT '0表示根节点',
   `sequence` int(10) unsigned NOT NULL,
   `signal` enum('ANY','SUCCESS','FAILURE') NOT NULL,
-  `plugin` varchar(256) NOT NULL,
+  `pluginId` bigint(11) NOT NULL,
   `configurations` longtext NOT NULL,
   `creator` int(10) unsigned NOT NULL,
   `createdAt` datetime NOT NULL,
   `updater` int(10) unsigned NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`nodeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of node
 -- ----------------------------
 BEGIN;
-INSERT INTO `node` VALUES (1, 1, 0, 0, 'ANY', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-16 09:40:12', 1, '2018-08-16 09:40:12');
-INSERT INTO `node` VALUES (2, 1, 0, 1, 'ANY', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:09:00', 1, '2018-08-20 05:09:00');
-INSERT INTO `node` VALUES (3, 1, 0, 2, 'ANY', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"https://www.qq.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:10:08', 1, '2018-08-20 05:10:08');
-INSERT INTO `node` VALUES (4, 1, 0, 3, 'ANY', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:11:36', 1, '2018-08-20 05:11:36');
-INSERT INTO `node` VALUES (5, 1, 0, 4, 'ANY', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:12:04', 1, '2018-08-20 05:12:04');
-INSERT INTO `node` VALUES (6, 1, 1, 0, 'SUCCESS', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:33:45', 1, '2018-08-20 13:33:49');
-INSERT INTO `node` VALUES (7, 1, 6, 0, 'SUCCESS', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:35:18', 1, '2018-08-20 13:35:22');
-INSERT INTO `node` VALUES (8, 1, 7, 0, 'SUCCESS', 'plugin-http', '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 14:14:56', 1, '2018-08-20 14:14:59');
+INSERT INTO `node` VALUES (1, 1, 0, 0, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-16 09:40:12', 1, '2018-08-16 09:40:12');
+INSERT INTO `node` VALUES (2, 1, 0, 1, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:09:00', 1, '2018-08-20 05:09:00');
+INSERT INTO `node` VALUES (3, 1, 0, 2, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"https://www.qq.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:10:08', 1, '2018-08-20 05:10:08');
+INSERT INTO `node` VALUES (4, 1, 0, 3, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:11:36', 1, '2018-08-20 05:11:36');
+INSERT INTO `node` VALUES (5, 1, 0, 4, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:12:04', 1, '2018-08-20 05:12:04');
+INSERT INTO `node` VALUES (6, 1, 1, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:33:45', 1, '2018-08-20 13:33:49');
+INSERT INTO `node` VALUES (7, 1, 6, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:35:18', 1, '2018-08-20 13:35:22');
+INSERT INTO `node` VALUES (8, 1, 7, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 14:14:56', 1, '2018-08-20 14:14:59');
+INSERT INTO `node` VALUES (9, 1, 1, 1, 'FAILURE', 3, '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-27 07:33:57', 1, '2018-08-27 07:33:57');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for plugin
+-- ----------------------------
+DROP TABLE IF EXISTS `plugin`;
+CREATE TABLE `plugin` (
+  `pluginId` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `pluginName` varchar(256) NOT NULL,
+  `pluginDesc` longtext,
+  `pluginRepo` varchar(512) NOT NULL,
+  `pluginTargetDir` varchar(256) DEFAULT NULL,
+  `pluginPath` varchar(1024) NOT NULL,
+  `pluginCompiledPath` varchar(1024) NOT NULL,
+  `pluginVersion` varchar(256) NOT NULL,
+  `pluginWorkBranch` varchar(256) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `creator` int(11) NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `updater` int(11) NOT NULL,
+  PRIMARY KEY (`pluginId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of plugin
+-- ----------------------------
+BEGIN;
+INSERT INTO `plugin` VALUES (1, 'HTTP', 'Http plugin for viaflow by request/request', 'https://github.com/viaflow/plugin-http.git', NULL, '/cronflow/plugins/plugin-http', '/cronflow/plugins/plugin-http/viaflow_compiled', '1.0.0', 'master', '2018-08-27 06:14:23', 1, '2018-08-27 06:14:23', 1);
+INSERT INTO `plugin` VALUES (2, 'HTTP', 'Http plugin for viaflow by request/request', 'https://github.com/viaflow/plugin-http.git', 'http', '/cronflow/plugins/http', '/cronflow/plugins/http/viaflow_compiled', '1.0.0', 'master', '2018-08-27 06:18:32', 1, '2018-08-27 06:18:32', 1);
+INSERT INTO `plugin` VALUES (3, 'HTTP', 'Http plugin for viaflow by request/request', 'https://github.com/viaflow/plugin-http.git', 'http-test', '/cronflow/plugins/http-test', '/cronflow/plugins/http-test/viaflow_compiled', '1.0.0', 'master', '2018-08-27 06:22:03', 1, '2018-08-27 06:22:03', 1);
 COMMIT;
 
 -- ----------------------------

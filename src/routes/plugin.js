@@ -1,6 +1,4 @@
-import fs from 'fs';
-import { join } from 'path';
-import { pluginInfo, pluginAdd } from '../services/plugin.service';
+import { pluginsAll, pluginInfo, pluginAdd } from '../services/plugin.service';
 import { nodeAdd } from '../services/flow.service';
 
 export const PluginsWithParams = {
@@ -8,24 +6,7 @@ export const PluginsWithParams = {
     method: 'get',
     auth: true,
     handler: async (req, res) => {
-        const plugins = [];
-        const pluginsPath = join(process.cwd(), './plugins');
-        // 遍历plugins的文件夹中的文件夹
-        const dirs = [];
-        fs.readdirSync(pluginsPath).forEach((item) => {
-            const dirPath = join(pluginsPath, item);
-            if (fs.statSync(dirPath).isDirectory()) {
-                dirs.push(dirPath);
-            }
-        });
-        // 便利文件夹，读取插件列表
-        dirs.forEach((plgPath) => {
-            try {
-                plugins.push(pluginInfo(plgPath));
-            } catch (e) {
-                Logger.error(`Plugin has error cannot be loaded: ${e.message}`);
-            }
-        });
+        const plugins = await pluginsAll(undefined, true);
 
         res.render('plugin/list', {
             plugins,
@@ -35,19 +16,17 @@ export const PluginsWithParams = {
 };
 
 export const DetailGet = {
-    path: '/detail/:path/:flowId?/:parentId?/:signal?',
+    path: '/detail/:pluginId/:flowId?/:parentId?/:signal?',
     method: 'get',
     auth: true,
     handler: async (req, res) => {
-        const pluginPath = join(process.cwd(), `./plugins/${req.params.path}`);
-        const plugin = pluginInfo(pluginPath);
-        Logger.log(plugin);
+        const plugin = await pluginInfo(req.params.pluginId);
         res.render('plugin/detail', plugin);
     },
 };
 
 export const DetailPost = {
-    path: '/detail/:path/:flowId/:parentId/:signal',
+    path: '/detail/:pluginId/:flowId/:parentId/:signal',
     method: 'post',
     auth: true,
     handler: async (req, res) => {
@@ -55,7 +34,8 @@ export const DetailPost = {
             req.params.flowId,
             req.params.parentId,
             req.params.signal,
-            req.params.path, req.body,
+            req.params.pluginId,
+            req.body,
         );
 
         res.json(node);
@@ -66,8 +46,8 @@ export const InitTest = {
     path: '/test',
     method: 'get',
     handler: async (req, res) => {
-        pluginAdd('https://github.com/viaflow/agent');
-        pluginAdd('https://github.com/viaflow/agent', 'agent1');
-        res.send(1);
+        const result = await pluginAdd('https://github.com/viaflow/plugin-http.git', 'http-test');
+        // pluginAdd('https://github.com/viaflow/plugin-http.git, 'agent1');
+        res.json(result);
     },
 };

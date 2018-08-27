@@ -11,3 +11,26 @@ export const isExistsFile = path => fs.existsSync(path) && fs.statSync(path).isF
  * @param {String} path Directory absolute path
  */
 export const isExistsDir = path => fs.existsSync(path) && fs.statSync(path).isDirectory();
+
+
+/**
+ * Remove dir(if exists)
+ * @param {String} path Directory absolute path
+ */
+export const removeDir = (path) => {
+    if (isExistsDir(path)) {
+        fs.rmdirSync(path);
+    }
+    return true;
+};
+
+/**
+ * Remove file(if exists)
+ * @param {String} path File absolute path
+ */
+export const removeFile = (path) => {
+    if (isExistsFile(path)) {
+        fs.unlinkSync(path);
+    }
+    return true;
+};

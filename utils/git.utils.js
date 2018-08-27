@@ -9,6 +9,10 @@ export const clone = (repo, rename, cwd) => {
     Logger.log(child);
 };
 
-export const checkout = (cwd) => {
-
+export const checkout = (cwd, branch = 'master') => {
+    const params = ['checkout', branch];
+    const child = spawnSync('git', params, { cwd: cwd || join(process.cwd(), './plugins') });
+    Logger.log(child);
+    Logger.log(child.stdout);
+    Logger.log(child.stderr);
 };

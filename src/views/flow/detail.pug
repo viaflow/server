@@ -57,7 +57,7 @@ block content
                             each node in flowNodes
                                 li.dd-item(data-id=node.nodeId)
                                     div(class=`dd-handle handle-${node.signal.toLowerCase()}`)
-                                        span.font-bold #{node.pluginInfo.name} (ID: #{node.nodeId}) (爹: #{node.parentId})↖
+                                        span.font-bold #{node.pluginInfo.pluginName} (ID: #{node.nodeId}) (爹: #{node.parentId})↖
                                             .m-t-20
                                                 p.pull-right.m-b-0.button-list
                                                     button.btn.btn-icon.btn-inverse.waves-effect.waves-light(type="button" data-toggle="tooltip" data-placement="top" title="Anyway" data-parent-id=node.parentId data-flow-id=node.flowId data-signal="ANY" data-add-node="1" data-node-id=node.nodeId)

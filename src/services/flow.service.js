@@ -1,5 +1,4 @@
 import { Op } from 'sequelize';
-import { join } from 'path';
 import { CronJob } from 'cron';
 import { Flow, Node } from '../models';
 import { pluginInfo } from './plugin.service';
@@ -42,7 +41,7 @@ export const flowByName = (flowName, raw = false) => Flow.findAll({
  * @param {String} plugin
  * @param {Object} configurations
  */
-export const nodeAdd = async (flowId, parentId, signal, plugin, configurations) => {
+export const nodeAdd = async (flowId, parentId, signal, pluginId, configurations) => {
     const currentNodes = await Node.findAll({
         attributes: ['sequence'],
         where: {
@@ -60,7 +59,7 @@ export const nodeAdd = async (flowId, parentId, signal, plugin, configurations) 
         flowId,
         parentId,
         signal,
-        plugin,
+        pluginId,
         sequence,
         configurations: JSON.stringify(configurations),
         creator: 1,
@@ -83,19 +82,17 @@ export const nodeByFlow = async (flowId, isFormat = false) => {
     });
 
     if (isFormat) {
-        currentNodes.forEach((item) => {
-            // look for pluginInfo
-            item.pluginInfo = pluginInfo(join(process.cwd(), `./plugins/${item.plugin}`));// eslint-disable-line
-            // find children
-            item.children = currentNodes.filter(node => node.parentId === item.nodeId);// eslint-disable-line
-        });
-        // Logger.log(JSON.stringify(currentNodes.filter(n => n.parentId === 0)));
+        for (let i = 0, len = currentNodes.length; i < len; i += 1) {
+            const item = currentNodes[i];
+            item.pluginInfo = await pluginInfo(item.pluginId);// eslint-disable-line
+            item.children = currentNodes.filter(node => node.parentId === item.nodeId);
+        }
         currentNodes = currentNodes.filter(n => n.parentId === 0);
     } else {
-        currentNodes.forEach((item) => {
-            // look for pluginInfo
-            item.pluginInfo = pluginInfo(join(process.cwd(), `./plugins/${item.plugin}`));// eslint-disable-line
-        });
+        for (let i = 0, len = currentNodes.length; i < len; i += 1) {
+            const item = currentNodes[i];
+            item.pluginInfo = pluginInfo(item.pluginId);
+        }
     }
     return currentNodes;
 };
