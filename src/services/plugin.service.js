@@ -35,11 +35,7 @@ const _pluginInfo = (path) => {
     const packageInfo = require(`${path}/package.json`);
 
     const result = {
-        // name: pluginInformation.name,
-        // desc: pluginInformation.desc,
         fields: pluginInformation.fields,
-        // path: _.last(path.split('/')),
-        // repo: _.get(packageInfo, 'homepage', '#'), // packageInfo.homepage,
         author: _.get(packageInfo, 'author', 'Guo Tuo <guotuo1024@gmail.com>'),
         issue: _.get(packageInfo, 'bugs.url', '#'),
     };
