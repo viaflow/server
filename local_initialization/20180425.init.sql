@@ -11,7 +11,7 @@
  Target Server Version : 50723
  File Encoding         : 65001
 
- Date: 27/08/2018 15:34:20
+ Date: 28/08/2018 19:22:41
 */
 
 SET NAMES utf8mb4;
@@ -46,8 +46,23 @@ CREATE TABLE `flow` (
 -- Records of flow
 -- ----------------------------
 BEGIN;
-INSERT INTO `flow` VALUES (1, 'TestFlow', 'cron,active,test', 'active', '*/3 * * * *', 'Asia/Shanghai', 0, 'INIT', 0, '这是一个Test的Cronflow\r\n每三分钟触发一次', NULL, NULL, NULL, '2018-08-15 07:23:49', 1, '2018-08-15 07:23:49', 1);
+INSERT INTO `flow` VALUES (1, 'TestFlow', 'cron,active,test', 'active', '* * * * *', 'Asia/Shanghai', 0, 'ACTIVE', 0, '这是一个Test的Cronflow\r\n每三分钟触发一次', NULL, NULL, NULL, '2018-08-15 07:23:49', 1, '2018-08-28 11:21:51', 1);
 COMMIT;
+
+-- ----------------------------
+-- Table structure for flow_history
+-- ----------------------------
+DROP TABLE IF EXISTS `flow_history`;
+CREATE TABLE `flow_history` (
+  `historyId` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `flowId` int(11) NOT NULL,
+  `triggeredAt` datetime NOT NULL,
+  `executeStartAt` datetime NOT NULL,
+  `executeEndAt` datetime NOT NULL,
+  `processInfo` longtext CHARACTER SET latin1 NOT NULL,
+  `createdAt` datetime NOT NULL,
+  PRIMARY KEY (`historyId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for node
@@ -66,21 +81,16 @@ CREATE TABLE `node` (
   `updater` int(10) unsigned NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`nodeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of node
 -- ----------------------------
 BEGIN;
-INSERT INTO `node` VALUES (1, 1, 0, 0, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-16 09:40:12', 1, '2018-08-16 09:40:12');
-INSERT INTO `node` VALUES (2, 1, 0, 1, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:09:00', 1, '2018-08-20 05:09:00');
-INSERT INTO `node` VALUES (3, 1, 0, 2, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"https://www.qq.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:10:08', 1, '2018-08-20 05:10:08');
-INSERT INTO `node` VALUES (4, 1, 0, 3, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:11:36', 1, '2018-08-20 05:11:36');
-INSERT INTO `node` VALUES (5, 1, 0, 4, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 05:12:04', 1, '2018-08-20 05:12:04');
-INSERT INTO `node` VALUES (6, 1, 1, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:33:45', 1, '2018-08-20 13:33:49');
-INSERT INTO `node` VALUES (7, 1, 6, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:35:18', 1, '2018-08-20 13:35:22');
-INSERT INTO `node` VALUES (8, 1, 7, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"www.bejson.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 14:14:56', 1, '2018-08-20 14:14:59');
-INSERT INTO `node` VALUES (9, 1, 1, 1, 'FAILURE', 3, '{\"method\":\"GET\",\"uri\":\"https://baidu.com\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-27 07:33:57', 1, '2018-08-27 07:33:57');
+INSERT INTO `node` VALUES (1, 1, 0, 0, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"https://raven.ihealthlabs.com.cn/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-16 09:40:12', 1, '2018-08-16 09:40:12');
+INSERT INTO `node` VALUES (2, 1, 1, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"https://raven.ihealthlabs.com.cn/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:33:45', 1, '2018-08-20 13:33:49');
+INSERT INTO `node` VALUES (3, 1, 2, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"https://raven.ihealthlabs.com.cn/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:35:18', 1, '2018-08-20 13:35:22');
+INSERT INTO `node` VALUES (4, 1, 3, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"https://raven.ihealthlabs.com.cn/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 14:14:56', 1, '2018-08-20 14:14:59');
 COMMIT;
 
 -- ----------------------------

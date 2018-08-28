@@ -79,7 +79,7 @@ export const pluginsAll = async (pluginName, raw = false) => {
 export const pluginAdd = (repoUri, rename, options = { mode: 'add' }) => {
     const dirName = rename || _.trim(repoUri.split('/')[repoUri.split('/').length - 1], '.git');
     const cwd = join(process.cwd(), `./plugins/${dirName}`);
-    checkout(cwd);
+    
 
     // remove old version
     if (options.mode !== 'add') {
@@ -87,7 +87,7 @@ export const pluginAdd = (repoUri, rename, options = { mode: 'add' }) => {
     }
     // git clone && checkout
     clone(repoUri, rename);
-
+    checkout(cwd);
     // 首先判断有没有package.json和index.js，没有就抛异常
     if (!isExistsFile(`${cwd}/package.json`) || !isExistsFile(`${cwd}/index.js`)) {
         throw new Error('missing file of plugin');
