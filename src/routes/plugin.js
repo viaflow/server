@@ -42,12 +42,12 @@ export const DetailPost = {
     },
 };
 
-export const InitTest = {
-    path: '/test',
-    method: 'get',
-    handler: async (req, res) => {
-        const result = await pluginAdd('https://github.com/viaflow/plugin-http.git', 'http-test');
-        // pluginAdd('https://github.com/viaflow/plugin-http.git, 'agent1');
-        res.json(result);
-    },
-};
+// export const InitTest = {
+//     path: '/test',
+//     method: 'get',
+//     handler: async (req, res) => {
+//         const result = await pluginAdd('https://github.com/viaflow/plugin-http.git', 'http-test');
+//         // pluginAdd('https://github.com/viaflow/plugin-http.git, 'agent1');
+//         res.json(result);
+//     },
+// };
