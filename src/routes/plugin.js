@@ -1,4 +1,5 @@
-import { pluginsAll, pluginInfo, pluginAdd } from '../services/plugin.service';
+import { pluginsAll, pluginInfo } from '../services/plugin.service';
+// import { pluginAdd } from '../services/plugin.service';
 import { nodeAdd } from '../services/flow.service';
 
 export const PluginsWithParams = {

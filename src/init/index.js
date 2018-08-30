@@ -82,7 +82,7 @@ const setExpress = () => {
     app.use(express.static(path.join(process.cwd(), 'public')));
 
     // set view engine
-    app.set('views', path.join(process.cwd(), './src/views'));
+    app.set('views', path.join(__dirname, '../views'));
     app.set('view engine', 'pug');
 };
 // endregion
@@ -92,10 +92,10 @@ const setDatabase = () => {
     // db settings required from src/inti/db/*.*
     // initialize database information like mongo/mysql or redis...
     Logger.log(`database setup...`);
-    const dbSettingsDir = 'src/init/db';
-    const dbFiles = fs.readdirSync(path.join(process.cwd(), dbSettingsDir));
+    const dbSettingsDir = './db';
+    const dbFiles = fs.readdirSync(path.join(__dirname, dbSettingsDir));
     dbFiles.forEach(dbf => {
-        require(path.join(process.cwd(), dbSettingsDir, dbf));
+        require(path.join(__dirname, dbSettingsDir, dbf));
     })
 }
 // endregion
@@ -103,10 +103,10 @@ const setDatabase = () => {
 // region express middlewares loader
 const setMiddlewares = () => {
     Logger.log(`middlewares setup...`);
-    const middlewaresDir = 'src/init/middlewares';
-    const middlewares = fs.readdirSync(path.join(process.cwd(), middlewaresDir));
+    const middlewaresDir = './middlewares';
+    const middlewares = fs.readdirSync(path.join(__dirname, middlewaresDir));
     middlewares.forEach(middleware => {
-        require(path.join(process.cwd(), middlewaresDir, middleware));
+        require(path.join(__dirname, middlewaresDir, middleware));
     })
 }
 // endregion
@@ -114,10 +114,10 @@ const setMiddlewares = () => {
 // region register custom scripts
 const setScripts = () => {
     Logger.log(`custom scripts setup...`);
-    const customScriptDir = 'src/init/customs';
-    const customScripts = fs.readdirSync(path.join(process.cwd(), customScriptDir));
+    const customScriptDir = './customs';
+    const customScripts = fs.readdirSync(path.join(__dirname, customScriptDir));
     customScripts.forEach(script => {
-        require(path.join(process.cwd(), customScriptDir, script));
+        require(path.join(__dirname, customScriptDir, script));
     })
 }
 // endregion
@@ -131,13 +131,13 @@ const setInterceptors = () => {
 // region register routes
 const setRoutes = () => {
     Logger.log(`routings setup...`);
-    const routesDir = 'src/routes';
-    const routeFiles = fs.readdirSync(path.join(process.cwd(), routesDir));
+    const routesDir = '../routes';
+    const routeFiles = fs.readdirSync(path.join(__dirname, routesDir));
     const routeTable = [];
     routeFiles.forEach(fileName => {
         let prefix = `/${path.basename(fileName, '.js')}`;
         (prefix === '/index') && (prefix = '/');
-        const handlers = require(path.join(process.cwd(), routesDir, fileName));
+        const handlers = require(path.join(__dirname, routesDir, fileName));
         const majorKeys = Object.keys(handlers);
         majorKeys.forEach(key => {
             const majorRoute = handlers[key];

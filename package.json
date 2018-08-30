@@ -9,14 +9,14 @@
   },
   "author": "Sirius Guo <cealer@foxmail.com>",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "prestart": "npm run -s build",
-    "start": "node dist/index.js",
+    "start": "node dist/src/index.js",
     "dev": "nodemon --ignore plugins --ignore public src/index.js --exec \"node -r babel-register\"",
     "local": "docker-compose -f docker-compose.dev.yml up",
     "clean": "rimraf dist",
-    "build": "npm run clean && mkdir -p dist && babel src -s -D -d dist",
+    "build": "npm run clean && mkdir -p dist && babel ./ --ignore node_modules,plugins,public,template --out-dir dist --copy-files",
     "test": "jest --watch",
     "lint": "esw -w src test",
     "taobao": "npm i --no-package-lock --registry=https://registry.npm.taobao.org",
@@ -66,7 +66,7 @@
     "gulp": "^3.9.1",
     "gulp-sass": "^4.0.1",
     "jest": "^23.5.0",
-    "nodemon": "^1.18.3",
+    "nodemon": "^1.18.4",
     "supertest": "^3.1.0"
   },
   "babel": {
