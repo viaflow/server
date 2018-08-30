@@ -87,10 +87,10 @@ CREATE TABLE `node` (
 -- Records of node
 -- ----------------------------
 BEGIN;
-INSERT INTO `node` VALUES (1, 1, 0, 0, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"https://raven.ihealthlabs.com.cn/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-16 09:40:12', 1, '2018-08-16 09:40:12');
-INSERT INTO `node` VALUES (2, 1, 1, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"https://raven.ihealthlabs.com.cn/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:33:45', 1, '2018-08-20 13:33:49');
-INSERT INTO `node` VALUES (3, 1, 2, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"https://raven.ihealthlabs.com.cn/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:35:18', 1, '2018-08-20 13:35:22');
-INSERT INTO `node` VALUES (4, 1, 3, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"https://raven.ihealthlabs.com.cn/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 14:14:56', 1, '2018-08-20 14:14:59');
+INSERT INTO `node` VALUES (1, 1, 0, 0, 'ANY', 1, '{\"method\":\"GET\",\"uri\":\"http://raven.tuotest.ihealthcn.com/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-16 09:40:12', 1, '2018-08-16 09:40:12');
+INSERT INTO `node` VALUES (2, 1, 1, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"http://raven.tuotest.ihealthcn.com/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:33:45', 1, '2018-08-20 13:33:49');
+INSERT INTO `node` VALUES (3, 1, 2, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"http://raven.tuotest.ihealthcn.com/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 13:35:18', 1, '2018-08-20 13:35:22');
+INSERT INTO `node` VALUES (4, 1, 3, 0, 'SUCCESS', 1, '{\"method\":\"GET\",\"uri\":\"http://raven.tuotest.ihealthcn.com/alive\",\"qs\":\"\",\"headers\":\"\",\"body\":\"\",\"extends\":\"\"}', 1, '2018-08-20 14:14:56', 1, '2018-08-20 14:14:59');
 COMMIT;
 
 -- ----------------------------

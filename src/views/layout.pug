@@ -6,7 +6,7 @@ html
         meta(name="description" content="Make pipeline cron job easier and amazing.")
         meta(name="author" content="Sirius")
         link(rel="shortcut icon" href="/assets/images/favicon.ico")
-        title Cron - #{title ? title : "iHealthLabs"}
+        title Cron - #{title ? title : "ViaFlow"}
         link(href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css")
         block css
         link(href="/assets/css/icons.css" rel="stylesheet" type="text/css")
@@ -113,49 +113,31 @@ html
                     #sidebar-menu
                         ul
                             li.text-muted.menu-title CronFlow
+                            li
+                                a.waves-effect(href="/flow/list")
+                                    i.ti-timer
+                                    span  Flows
+                            li
+                                a.waves-effect(href="/plugin/list")
+                                    i.ti-plug
+                                    span  Plug-ins 
+                            li.text-muted.menu-title Settings
                             li.has_sub
                                 a.waves-effect(href="javascript:void(0);")
-                                    i.ti-user
-                                    span  Flow 
-                                    span.menu-arrow
-                                ul.list-unstyled
-                                    li
-                                        a(href="/flow/add")  Add 
-                            li.text-muted.menu-title System Settings
+                                    i.ti-panel
+                                    span Global Variables
                             li.has_sub
                                 a.waves-effect(href="javascript:void(0);")
-                                    i.ti-user
-                                    span  Crm 
-                                    span.menu-arrow
+                                    i.ti-receipt
+                                    span.label.label-warning.pull-right 3
+                                    span Logstash 
                                 ul.list-unstyled
                                     li
-                                        a(href="crm-dashboard.html")  Dashboard 
+                                        a(href="javascript:void(0);")  Triggerd
                                     li
-                                        a(href="crm-contact.html")  Contacts 
+                                        a(href="javascript:void(0);")  Executed
                                     li
-                                        a(href="crm-opportunities.html")  Opportunities 
-                                    li
-                                        a(href="crm-leads.html")  Leads 
-                                    li
-                                        a(href="crm-customers.html")  Customers 
-                            li.has_sub
-                                a.waves-effect(href="javascript:void(0);")
-                                    i.ti-shopping-cart
-                                    span.label.label-warning.pull-right 6
-                                    span  eCommerce 
-                                ul.list-unstyled
-                                    li
-                                        a(href="ecommerce-dashboard.html")  Dashboard
-                                    li
-                                        a(href="ecommerce-products.html")  Products
-                                    li
-                                        a(href="ecommerce-product-detail.html")  Product Detail
-                                    li
-                                        a(href="ecommerce-product-edit.html")  Product Edit
-                                    li
-                                        a(href="ecommerce-orders.html")  Orders
-                                    li
-                                        a(href="ecommerce-sellers.html")  Sellers
+                                        a(href="javascript:void(0);")  System Errors
                         .clearfix
                     .clearfix
             .content-page
@@ -163,7 +145,7 @@ html
                     .container-fluid
                         block content
                 footer.footer.text-right
-                    | © 2018 - 2020. All rights reserved.
+                    | Copyright © 2018 - 2020. ViaFlow All rights reserved.
         script.
             var resizefunc = [];
         // jQuery

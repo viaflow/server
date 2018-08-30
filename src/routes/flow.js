@@ -48,6 +48,14 @@ export const AddSubmit = {
     },
 };
 
+export const FlowList = {
+    path: '/list',
+    method: 'get',
+    handler: async (req, res) => {
+
+    },
+};
+
 
 /**
  * flow detail information, add node, edit base information
