@@ -55,7 +55,6 @@ export const pluginUpdateById = async (entity) => {
     entity.updatedAt = new Date();
     entity.updater = 1;
     Logger.log(plugin.update);
-    Logger.log(entity);
     return await plugin.update(entity, {
         fields: ['pluginName', 'pluginDesc', 'pluginPath', 'pluginCompiledPath', 'pluginVersion', 'pluginWorkBranch', 'updatedAt', 'updater'],
     });

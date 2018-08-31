@@ -45,7 +45,6 @@ export const PluginAdd = {
         }
         const { repo, rename } = req.body;
         const plgInfo = await pluginAdd(repo, rename);
-        Logger.log(plgInfo);
         res.json(plgInfo.dataValues);
     },
 };
