@@ -2,6 +2,8 @@ extends ../external
 
 block css
     link(href="/assets/venders/custombox/css/custombox.css" rel="stylesheet")
+    link(href='/assets/venders/ladda-buttons/css/ladda-themeless.min.css', rel='stylesheet', type='text/css')
+
 
 block content
     .row
@@ -47,13 +49,22 @@ block content
             span.sr-only Close
         h4.custom-modal-title Add Plugin (asynchronous task)
         .custom-modal-text.text-left
-            form(role="form")
+            #form
                 .form-group
                     label(for="gitLink") Git repository
-                    input#gitLink.form-control(type="text" placeholder="e.g. https://github.com/viaflow/plugin-http.git")
-                button.btn.btn-default.waves-effect.waves-light(type="submit") Submit
-                button.btn.btn-danger.waves-effect.waves-light.m-l-10(type="button") Cancel
+                    input#gitLink.form-control(type="text" placeholder="e.g. https://github.com/viaflow/plugin-http.git" name="repo")
+                .form-group
+                    label(for="rename") ReName
+                    input#rename.form-control(name="rename" type="text" placeholder="e.g. plugin-http to http")
+                button#addPlugin.ladda-button.btn.btn-primary(data-style='expand-left')
+                    | Submit
+                button.btn.btn-danger.waves-effect.waves-light.m-l-10(type="button" onclick="Custombox.close();") Cancel
 
 block script
     script(src="/assets/venders/custombox/js/custombox.min.js")
     script(src="/assets/venders/custombox/js/legacy.min.js")
+    script(src='/assets/venders/ladda-buttons/js/spin.min.js')
+    script(src='/assets/venders/ladda-buttons/js/ladda.min.js')
+    script(src="/assets/venders/notifyjs/js/notify.js")
+    script(src="/assets/venders/notifications/notify-metro.js")
+    script(src="/assets/pages/plugin.list.js")

@@ -1,6 +1,6 @@
 import { body, param, validationResult } from 'express-validator/check';
 import {
-    flowAdd, flowById, nodeByFlow, flowUpdateById,
+    flowAdd, flowById, nodeByFlow, flowUpdateById, flowByName,
 } from '../services/flow.service';
 
 export const AddInit = {
@@ -47,15 +47,6 @@ export const AddSubmit = {
         }
     },
 };
-
-export const FlowList = {
-    path: '/list',
-    method: 'get',
-    handler: async (req, res) => {
-
-    },
-};
-
 
 /**
  * flow detail information, add node, edit base information
@@ -114,5 +105,11 @@ export const FlowUpdate = {
 };
 
 export const Flows = {
-
+    path: '/list/:flowName?',
+    method: 'get',
+    handler: async (req, res) => {
+        const flowName = req.params.flowName || '';
+        const flows = await flowByName(flowName, true);
+        res.render('flow/list', { flows });
+    },
 };

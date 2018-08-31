@@ -1,0 +1,34 @@
+extends ../layout
+block css
+
+block content
+    .row
+        .col-lg-12
+            .card-box
+                h4.m-t-0.header-title Cronflows
+                p.text-muted.font-14.m-b-20
+                    | Priority display the 
+                    code ACTIVE
+                    |  flows
+                    | .
+                table.table.table-striped
+                    thead
+                        tr
+                            th Name
+                            th Trigger type
+                            th Cron
+                            th TimeZone
+                            th State
+                            th Settings
+                    tbody
+                        each flow in flows
+                            tr
+                                th(scope='row') #{flow.flowName}
+                                td #{flow.triggerType}
+                                td #{flow.cron}
+                                td #{flow.flowTimezone}
+                                td #{flow.flowState}
+                                td 
+                                    a.label.label-table.label-success(href=`/flow/detail/${flow.flowId}`) Details
+
+block script

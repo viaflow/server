@@ -1,7 +1,8 @@
 import { spawnSync } from 'child_process';
 import { join } from 'path';
+import rimraf from 'rimraf';
 import { Plugin } from '../models';
-import { isExistsFile, isExistsDir, removeDir } from '../../utils/fs.utils';
+import { isExistsFile, isExistsDir } from '../../utils/fs.utils';
 import { clone, checkout } from '../../utils/git.utils';
 import { applicationConf } from '../init/config';
 
@@ -18,6 +19,7 @@ export const pluginById = (pluginId, raw = false) => Plugin.findOne({
     },
     raw,
 });
+
 
 /**
  * 获取插件信息根据绝对路径
@@ -52,7 +54,9 @@ export const pluginUpdateById = async (entity) => {
     const plugin = await pluginById(entity.pluginId);
     entity.updatedAt = new Date();
     entity.updater = 1;
-    return plugin.update(entity, {
+    Logger.log(plugin.update);
+    Logger.log(entity);
+    return await plugin.update(entity, {
         fields: ['pluginName', 'pluginDesc', 'pluginPath', 'pluginCompiledPath', 'pluginVersion', 'pluginWorkBranch', 'updatedAt', 'updater'],
     });
 };
@@ -70,20 +74,40 @@ export const pluginsAll = async (pluginName, raw = false) => {
     return result;
 };
 
+const _pluginAdd = async (entity) => {
+    const exists = await pluginByRepo(entity.pluginRepo, true);
+
+    if (exists) {
+        Logger.log(`Plugin existed, run update method with plugin ${exists.pluginId}`);
+        // return await exists.update(Object.assign(exists.dataValues, entity), {
+        //     fields: ['pluginName', 'pluginDesc', 'pluginPath', 'pluginCompiledPath', 'pluginVersion', 'pluginWorkBranch', 'updatedAt', 'updater'],
+        // })
+        return await pluginUpdateById(Object.assign(exists, entity));
+    }
+
+    return await Plugin.create(Object.assign({
+        pluginWorkBranch: 'master',
+        createdAt: new Date(),
+        creator: 1,
+        updatedAt: new Date(),
+        updater: 1,
+    }, entity))
+}
+
 /**
  * 下载新的插件根据git地址
  * @param {String} repoUri 插件的git地址
  * @param {String} rename 下载到本地的地址
  * @param {Object} options 扩展选项
  */
-export const pluginAdd = (repoUri, rename, options = { mode: 'add' }) => {
+export const pluginAdd = async (repoUri, rename) => {
     const dirName = rename || _.trim(repoUri.split('/')[repoUri.split('/').length - 1], '.git');
     const cwd = join(process.cwd(), `./plugins/${dirName}`);
-    
 
     // remove old version
-    if (options.mode !== 'add') {
-        removeDir(cwd);
+    if (isExistsDir(cwd)) {
+        Logger.log(`Directory exists, remove and re-create( ${cwd} )...`)
+        rimraf.sync(cwd);
     }
     // git clone && checkout
     clone(repoUri, rename);
@@ -139,38 +163,16 @@ export const pluginAdd = (repoUri, rename, options = { mode: 'add' }) => {
     // eslint-disable-next-line
     const packageInfo = require(`${cwd}/package.json`);
 
-    if (options.mode === 'add') {
-        // 存到数据库里
-        return Plugin.create({
-            pluginName: pluginInformation.name,
-            pluginDesc: pluginInformation.desc,
-            pluginRepo: repoUri,
-            pluginTargetDir: rename,
-            pluginPath: cwd,
-            pluginCompiledPath: `${cwd}/${applicationConf.pluginCompiledDir}`,
-            pluginVersion: _.get(packageInfo, 'version', '0.0.0'),
-            pluginWorkBranch: 'master', // master as default
-            createdAt: new Date(),
-            creator: 1,
-            updatedAt: new Date(),
-            updater: 1,
-        });
-    }
-    if (options.mode === 'update') {
-        return pluginUpdateById({
-            pluginName: pluginInformation.name,
-            pluginDesc: pluginInformation.desc,
-            pluginRepo: repoUri,
-            pluginTargetDir: rename,
-            pluginPath: cwd,
-            pluginCompiledPath: `${cwd}/${applicationConf.pluginCompiledDir}`,
-            pluginVersion: _.get(packageInfo, 'version', '0.0.0'),
-            pluginWorkBranch: 'master', // master as default
-            updatedAt: new Date(),
-            updater: 1,
-        });
-    }
-    throw new Error('mode cannot matched in system.');
+    return await _pluginAdd({
+        pluginName: pluginInformation.name,
+        pluginDesc: pluginInformation.desc,
+        pluginRepo: repoUri,
+        pluginTargetDir: rename,
+        pluginPath: cwd,
+        pluginCompiledPath: `${cwd}/${applicationConf.pluginCompiledDir}`,
+        pluginVersion: _.get(packageInfo, 'version', '0.0.0'),
+        pluginWorkBranch: 'master',
+    });
 };
 
 // /**
