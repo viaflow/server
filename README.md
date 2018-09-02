@@ -49,6 +49,8 @@ services:
     tty: true
 ```
 
+Then access localhost:8080/flow/add to check features. Login name is sa1, password is 123456.
+
 # Roadmap
 
 ### Phase 1
@@ -79,6 +81,7 @@ services:
 
 - [ ] 页面逻辑的优化
 - [ ] 操作人的完善（登录后写入到request信息中）
+- [ ] 对密码进行加密处理
 - [ ] 系统用户的简单管理（CRUD）
 - [ ] 用户日志的记录
 
