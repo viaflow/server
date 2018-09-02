@@ -1,6 +1,53 @@
 # ViaFlow
 Cronflow backend - Make pipeline cron job easier and amazing.
 
+For now this current version is only a alpha version, a lot of features are not completed. You could check the roadmap below to determine the current progress of the viaflow.
+
+# Demo start compose file:
+
+Init your mysql database with ([db-init SQL script][dbscript]). Then start with docker-compose:
+
+```yaml
+version: '2'
+services:
+  server:
+    image: viaflow/server:latest_rc
+    environment:
+      PORT: '8080'
+      DATABASE_DIALECT: mysql
+      DATABASE_HOST: Mysql host
+      DATABASE_PORT: Mysql port
+      DATABASE_USERNAME: mysql user
+      DATABASE_NAME: database name
+      DATABASE_PASSWORD: mysql password
+      TOKEN_SECRET: JWT secret
+      TOKEN_EXPRIED: JWT expried, e.g. 7d
+      TOKEN_ALGORITHMS: HS256
+      REDIS_HOST: redis host
+      REDIS_PORT: redis port
+      REDIS_AUTH: redis auth
+      REDIS_DB: default redis db
+    stdin_open: true
+    tty: true
+    ports:
+    - 9902:8080/tcp
+  agent:
+    image: viaflow/agent:latest_rc
+    environment:
+      DATABASE_DIALECT: mysql
+      DATABASE_HOST: Mysql host
+      DATABASE_PORT: Mysql port
+      DATABASE_USERNAME: mysql user
+      DATABASE_NAME: database name
+      DATABASE_PASSWORD: mysql password
+      REDIS_HOST: redis host
+      REDIS_PORT: redis port
+      REDIS_AUTH: redis auth
+      REDIS_DB: default redis db
+      NPM_REGISTRY_TAOBAO: default is false, if true then use taobao npm registry
+    stdin_open: true
+    tty: true
+```
 
 # Roadmap
 
@@ -49,3 +96,6 @@ Cronflow backend - Make pipeline cron job easier and amazing.
 - [ ] UI作为独立的Project，决定使用Reactjs或者Angular，需要重新思考构建逻辑。
 - [ ] 编写安装文档，在社区中进行推广
 - [ ] 考虑制作公有云服务版本
+
+
+[dbscript]:https://github.com/viaflow/server/blob/develop/local_initialization/20180425.init.sql
