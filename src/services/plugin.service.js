@@ -45,8 +45,8 @@ const _pluginInfo = (path) => {
 };
 /* eslint-disable */
 
-export const pluginInfo = (pluginId) => {
-    const plugin = pluginById(pluginId, true);
+export const pluginInfo = async (pluginId) => {
+    const plugin = await pluginById(pluginId, true);
     return Object.assign(plugin, _pluginInfo(plugin.pluginCompiledPath));
 }
 
