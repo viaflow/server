@@ -45,8 +45,8 @@ const _pluginInfo = (path) => {
 };
 /* eslint-disable */
 
-export const pluginInfo = async (pluginId) => {
-    const plugin = await pluginById(pluginId, true);
+export const pluginInfo = (pluginId) => {
+    const plugin = pluginById(pluginId, true);
     return Object.assign(plugin, _pluginInfo(plugin.pluginCompiledPath));
 }
 
@@ -81,10 +81,10 @@ const _pluginAdd = async (entity) => {
         // return await exists.update(Object.assign(exists.dataValues, entity), {
         //     fields: ['pluginName', 'pluginDesc', 'pluginPath', 'pluginCompiledPath', 'pluginVersion', 'pluginWorkBranch', 'updatedAt', 'updater'],
         // })
-        return await pluginUpdateById(Object.assign(exists, entity));
+        return pluginUpdateById(Object.assign(exists, entity));
     }
 
-    return await Plugin.create(Object.assign({
+    return Plugin.create(Object.assign({
         pluginWorkBranch: 'master',
         createdAt: new Date(),
         creator: 1,
@@ -99,7 +99,7 @@ const _pluginAdd = async (entity) => {
  * @param {String} rename 下载到本地的地址
  * @param {Object} options 扩展选项
  */
-export const pluginAdd = async (repoUri, rename) => {
+export const pluginAdd = (repoUri, rename) => {
     const dirName = rename || _.trim(repoUri.split('/')[repoUri.split('/').length - 1], '.git');
     const cwd = join(process.cwd(), `./plugins/${dirName}`);
 
@@ -162,7 +162,7 @@ export const pluginAdd = async (repoUri, rename) => {
     // eslint-disable-next-line
     const packageInfo = require(`${cwd}/package.json`);
 
-    return await _pluginAdd({
+    return _pluginAdd({
         pluginName: pluginInformation.name,
         pluginDesc: pluginInformation.desc,
         pluginRepo: repoUri,
@@ -174,13 +174,32 @@ export const pluginAdd = async (repoUri, rename) => {
     });
 };
 
-// /**
-//  * Re download/install deps/build plugin
-//  * @param {Plugin} Plugin model entity
-//  */
-// export const refreshPlugin = (pluginId) => {
-//     Logger.log(pluginEntity);
-//     // delete plugin and re-add
 
-//     return pluginEntity;
-// };
+
+/**
+ * Re download/install deps/build plugin
+ * @param {Plugin} Plugin model entity
+ */
+export const restore = async () => {
+    const plugins = await Plugin.findAll({ raw: false })
+    plugins.forEach((plugin) => {
+        Logger.log(`Process plugin ${plugin.pluginName} to ${plugin.pluginPath}`);
+        // rm dir
+        if (isExistsDir(plugin.pluginPath)) {
+            rimraf.sync(plugin.pluginPath);
+        }
+        // git clone
+        clone(plugin.pluginRepo, plugin.pluginTargetDir);
+        // git checkout
+        checkout(plugin.pluginPath);
+        // babel
+        spawnSync(applicationConf.babelCmd, applicationConf.babelParams, { cwd: plugin.pluginPath });
+        // npm install
+        spawnSync(applicationConf.npmCmd, applicationConf.npmParams, {
+            cwd: plugin.pluginCompiledPath,
+        });
+    })
+
+
+    return plugins;
+};

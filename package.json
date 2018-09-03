@@ -13,7 +13,7 @@
   "scripts": {
     "prestart": "npm run -s build",
     "start": "node dist/src/index.js",
-    "dev": "nodemon --ignore plugins --ignore public src/index.js --exec \"node -r babel-register\"",
+    "dev": "nodemon src/index.js --watch './src/' --exec \"node -r babel-register\"",
     "local": "docker-compose -f docker-compose.dev.yml up",
     "clean": "rimraf dist",
     "build": "npm run clean && mkdir -p dist && babel ./ --ignore node_modules,plugins,public,template --out-dir dist --copy-files",

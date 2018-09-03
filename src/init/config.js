@@ -39,8 +39,14 @@ const applicationConf = {
     babelCmd: 'babel',
     babelParams: ['./', '-s', '-D', '-d', 'viaflow_compiled'],
     npmCmd: 'npm',
-    npmParams: ['i', '--registry=https://registry.npm.taobao.org', '--no-package-lock'],
+    npmParams: ['i', '--no-package-lock'],
 };
+
+if (process.env.NPM_REGISTRY_TAOBAO === 'true') {
+    // eslint-disable-next-line
+    console.log('···将使用淘宝npm仓库···');
+    applicationConf.npmParams.push('--registry=https://registry.npm.taobao.org');
+}
 
 export {
     dbConf, tokenConf, applicationConf, redisConf,
