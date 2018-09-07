@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/viaflow/server.git"
   },
-  "author": "Sirius Guo <cealer@foxmail.com>",
+  "author": "Guo Tuo <cealer@foxmail.com>",
   "license": "MIT",
   "main": "dist/src/index.js",
   "scripts": {
@@ -58,7 +58,7 @@
     "babel-eslint": "^9.0.0",
     "babel-jest": "^23.4.2",
     "babel-register": "^6.26.0",
-    "eslint": "^5.4.0",
+    "eslint": "^5.5.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^21.22.0",
@@ -67,7 +67,7 @@
     "gulp-sass": "^4.0.1",
     "jest": "^23.5.0",
     "nodemon": "^1.18.4",
-    "supertest": "^3.1.0"
+    "supertest": "^3.3.0"
   },
   "babel": {
     "presets": [
