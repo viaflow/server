@@ -152,12 +152,17 @@ export const flowUpdateById = async (entity) => {
 
     // if cron expression or cron job state changed, it should do re-register or cancel action.
     // TODO: Think about the sequlize hook 'afterUpdate' maybe can handling it more perfect
-    if (!hookFlag) {
-        Logger.log('Job need not re-register.');
-        return result;
+
+    // If state not active, remove cron job.
+    if (entity.flowState !== 'ACTIVE' && CronFlow[`c_${entity.flowId}`]) {
+        CronFlow[`c_${entity.flowId}`].stop();
+        CronFlow[`c_${entity.flowId}`] = undefined;
+        Logger.log(`Job cancelled ${entity.flowId}`);
     }
     // If not, destory old CronFlow and release memory
-    flowRegistration(result.dataValues.flowId, result.dataValues.cron, { runOnInit: false, timeZone: result.dataValues.flowTimezone });
-
+    if (entity.flowState === 'ACTIVE' && hookFlag) {
+        flowRegistration(result.dataValues.flowId, result.dataValues.cron, { runOnInit: false, timeZone: result.dataValues.flowTimezone });
+        Logger.log(`Job registed ${entity.flowId}`);
+    }
     return result;
 };
