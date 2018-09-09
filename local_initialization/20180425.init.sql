@@ -112,15 +112,13 @@ CREATE TABLE `plugin` (
   `updatedAt` datetime NOT NULL,
   `updater` int(11) NOT NULL,
   PRIMARY KEY (`pluginId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of plugin
 -- ----------------------------
 BEGIN;
 INSERT INTO `plugin` VALUES (1, 'HTTP', 'Http plugin for viaflow by request/request', 'https://github.com/viaflow/plugin-http.git', NULL, '/cronflow/plugins/plugin-http', '/cronflow/plugins/plugin-http/viaflow_compiled', '1.0.0', 'master', '2018-08-27 06:14:23', 1, '2018-08-27 06:14:23', 1);
-INSERT INTO `plugin` VALUES (2, 'HTTP', 'Http plugin for viaflow by request/request', 'https://github.com/viaflow/plugin-http.git', 'http', '/cronflow/plugins/http', '/cronflow/plugins/http/viaflow_compiled', '1.0.0', 'master', '2018-08-27 06:18:32', 1, '2018-08-27 06:18:32', 1);
-INSERT INTO `plugin` VALUES (3, 'HTTP', 'Http plugin for viaflow by request/request', 'https://github.com/viaflow/plugin-http.git', 'http-test', '/cronflow/plugins/http-test', '/cronflow/plugins/http-test/viaflow_compiled', '1.0.0', 'master', '2018-08-27 06:22:03', 1, '2018-08-27 06:22:03', 1);
 COMMIT;
 
 -- ----------------------------
