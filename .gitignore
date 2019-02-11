@@ -70,3 +70,6 @@ package-lock.json
 # IDEs
 .vscode
 .idea
+
+# go modules
+go.sum
